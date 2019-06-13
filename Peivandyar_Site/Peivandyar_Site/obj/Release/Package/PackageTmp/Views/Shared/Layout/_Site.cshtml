@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="fa" class="no-js" dir="rtl">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Import Your Meta Tags EHSAN">
+    <meta name="keywords" content="به پیوندیار خوش آمدید">
+    <meta name="author" content="تیم نرم افزاری پیوندیار">
+    <link rel="icon" href="~/Content/images/logo-wot.ico" />
+
+    <title>پیوندیار</title>
+    
+    
+    
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/plugin/animate.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    <!-- Navigation  -->
+    @Html.Partial("Partial/_NavigationPartial")
+
+
+    @RenderBody()
+
+
+    <!-- Social Icons -->
+    <div id="social-icons">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center group-icons">
+                    <ul class="icons list-unstyled p-0 m-0 wow zoomIn fast">
+                        <li><a href="#"><i class="fab fa-google mytime-2s"></i></a></li>
+                        <li><a href="#"><i class="fab fa-whatsapp mytime-2s"></i></a></li>
+                        <li><a href="#"><i class="fab fa-pinterest-p mytime-2s"></i></a></li>
+                        <li><a href="#"><i class="fab fa-facebook-f mytime-2s"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram mytime-2s"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mt-5">
+                    <div class="footer-img text-center">
+                        <img src="~/Content/images/Logo-wn-small.png" width="80" height="80" alt="peivandyar-logo">
+                        <h6>پیوندیار</h6>
+                    </div>
+                    <div class="links text-center wow fadeInUp faster">
+                        <ul class="list-unstyled p-0">
+                            <li><a href="@Url.Action("FAQ","Home",null)" class="mytime-2s">پرسش های متداول</a></li>
+                            <li><a href="@Url.Action("Harim","Home",null)" class="mytime-2s">حریم خصوصی</a></li>
+                            <li><a href="@Url.Action("About","Home",null)" class="mytime-2s">درباره ی ما</a></li>
+                            <li><a href="@Url.Action("Contact","Home",null)" class="mytime-2s">تماس با ما</a></li>
+                        </ul>
+                    </div>
+                    <div class="register text-center wow fadeInUp fast">
+                        <form class="email">
+                            <input type="text" class="mytime-2s" placeholder="آدرس ایمیل" name="email"><button type="submit" class="mytime-2s"><i class="far fa-envelope-open"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Copyright -->
+    <div class="copyright text-center">
+        <h6>کليه حقوق اين سايت متعلق به تیم <a href="@Url.Action("Index","Home",null)">پیوندیار</a> می باشد.</h6>
+    </div>
+
+
+
+    
+    <!-- jQuery -->
+
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery.js"></script>
+    
+    <script src="~/Content/bootstrap/bootstrap.js"></script>
+    <script src="~/Scripts/script.js"></script>
+    <script src="~/Content/plugin/wow.js"></script>
+    @RenderSection("Scripts", false)
+
+</body>
+</html>
+

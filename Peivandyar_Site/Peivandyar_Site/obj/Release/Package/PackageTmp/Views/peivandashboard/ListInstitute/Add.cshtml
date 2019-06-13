@@ -1,0 +1,537 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/Layout/_SitePeivandManager.cshtml";
+}
+@{ 
+    ViewModel.ViewBagError msg = (ViewModel.ViewBagError)ViewBag.msg;
+}
+@{
+    List<Models.InstituteKind> InstituteKindes = new List<Models.InstituteKind>();
+    if (ViewBag.InstituteKindes != null)
+    {
+        InstituteKindes = (List<Models.InstituteKind>)ViewBag.InstituteKindes;
+    }
+
+    List<Models.Grade> GradesList = new List<Models.Grade>();
+    if (ViewBag.GradesList!=null)
+    {
+        GradesList = (List<Models.Grade>)ViewBag.GradesList;
+    }
+
+}
+<!-- Body Content -->
+<div id="content" class="">
+    <div class="container-fluid">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title">اضافه کردن مرکز آموزشی</h5>
+                <a href="@Url.Action("Index", "ListInstitute",null)" class="btn btn-secondary back-btn">برگشت&nbsp;<i class="fas fa-angle-double-left"></i></a>
+                <hr class="line-title">
+            </div>
+@using (@Html.BeginForm("CreateInstitute", "ListInstitute", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (msg != null)
+    {
+            <!--Alert Msg-->
+        <div class="alert alert-@msg.ClassName">
+            <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+            @msg.Msg
+        </div>
+    }
+    <div class="card-body">
+        <div class="row">
+
+                  
+
+            <div class="col-md-6">
+                <!-- فعال بودن و رتبه -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select name="order" class="custom-select" id="select-order">
+                                <option selected>اولویت آموزشگاه</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="3">4</option>
+                                <option value="3">5</option>
+                                <option value="3">6</option>
+                                <option value="3">7</option>
+                                <option value="3">8</option>
+                                <option value="3">9</option>
+                                <option value="3">10</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            
+                                <label for="Active">فعال بودن :</label>
+                                @Html.CheckBox("Active", true)
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <input name="Enter_Date" type="text" class="observer-example date-picker form-control" />
+                        </div>
+                    </div>
+                </div>
+                <!-- نام آموزشگاه -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="نام آموزشگاه" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="En_Name" id="name" class="form-control" placeholder="نام آموزشگاه به انگلیسی" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="educationalCode" id="educationalCode" class="form-control" placeholder="کد آموزشگاه" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- نوع آموزشگاه -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <select name="Gradeid" data-placeholder="نوع آموزشگاه" class="custom-select chosen-select chosen-rtl" id="select-cross" multiple >
+                                @if (GradesList != null)
+                                {
+                                    foreach (var item in GradesList)
+                                    {
+                                        <option value="@item.id">@item.Name</option>
+                                    }
+                                }
+                                
+                                
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="custom-select" name="InstituteKindid" id="InstituteKindid">
+                                @if (InstituteKindes != null)
+                                {
+                                    foreach (var item in InstituteKindes)
+                                    {
+                                        <option value="@item.id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="custom-select" name="boyOrGirl" id="boyOrGirl">
+                                <option value="false" selected>دخترانه</option>
+                                <option value="true">پسرانه</option>
+                                <option value="null">دخترانه و پسرانه</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- استان و شهر و منطقه -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select class="custom-select" name="ostan_codevm" id="ddl_ostanlist">
+                                <option value="0" selected>استان</option>
+                                @foreach (var item in ViewBag.ostanlist)
+                                {
+                                    <option value="@item.Code">@item.Pname</option>
+                                }
+                                
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="custom-select" name="city_codevm" id="ddl_cities">
+                                <option selected>شهر</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="custom-select" name="zone_Codevm" id="ddl_zone">
+                                <option selected>منطقه</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- شماره تماس -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="tel" name="tel1" id="tel1" class="form-control" placeholder="شماره تلفن ۱" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="tel" name="tel2" id="tel2" class="form-control" placeholder="شماره تلفن ۲">
+                        </div>
+                    </div>
+                </div>
+                <!-- شماره همراه -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="tel" name="mobile1" id="mobile1" class="form-control" placeholder="شماره همراه ۱" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="tel" name="mobile2" id="mobile2" class="form-control" placeholder="شماره همراه ۲">
+                        </div>
+                    </div>
+                </div>
+                <!--فکس و کد پستی-->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="fax" id="fax" class="form-control" placeholder="فکس">
+                        </div>
+                        <div class="col-md-6">
+                            <input name="postalCode" type="text" id="code-post" class="form-control" placeholder="کد پستی">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ایمیل و وب سایت -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="url" name="website" id="website" class="form-control" placeholder="آدرس وب سایت">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" name="Email" id="email" class="form-control" placeholder="ایمیل">
+                        </div>
+                    </div>
+                </div>
+                <!-- شبکه های اجتماعی -->
+                <div class="select-group mt-3 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="Group_Channel1" id="social-telegram" class="form-control" placeholder="آیدی تلگرام">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="Group_Channel2" id="social-instagram" class="form-control" placeholder="آیدی اینستاگرام">
+                        </div>
+                    </div>
+                </div>
+                <!-- نقشه گوگل -->
+                <input type="text" name="Google_Map" id="google-map" class="form-control" placeholder="آدرس نقشه">
+                <!-- شعار -->
+                <div class="form-group mt-3">
+                    <label for="textarea-shoar">شعار : </label>
+                    <textarea class="form-control" name="shoar" id="textarea-shoar" rows="3"></textarea>
+                </div>
+                <!-- توضیحات -->
+                <div class="form-group">
+                    <label for="textarea-tozihat">توضیحات : </label>
+                    <textarea class="form-control" name="Description" id="textarea-tozihat" rows="3"></textarea>
+                </div>
+                <!-- آدرس -->
+                <div class="form-group">
+                    <label for="textarea-address">آدرس : </label>
+                    <textarea class="form-control" name="address" id="textarea-address" rows="3" required></textarea>
+                </div>
+                
+            </div>
+            <!--Upload Picture-->
+            <div class="col-md-6">
+
+                <h6 class="title-file-uploader d-none">عکس پس زمینه</h6>
+                <input class="d-none" id="my-file-uploader-background88888" type="file" name="BackgroundFile" accept=".jpg, .png, image/jpeg, image/png">
+
+                <h6 class="title-file-uploader">لوگو مرکز آموزشی</h6>
+                <input id="my-file-uploader-logo8888" type="file" name="LogoFile" accept=".png,image/png">
+
+                <h6 class="title-file-uploader">عکس روی کارت</h6>
+                <input id="my-file-uploader-card88888" type="file" name="CartFile" accept=".png, image/png">
+
+                <h6 class="title-file-uploader">عکس های مرکز آموزشی</h6>
+                <input id="my-file-uploader-institute88888" type="file" name="InstitutesPics"  accept=".jpg, .png, image/jpeg, image/png" multiple>
+
+                
+
+            </div>
+        </div> <!-- Row -->
+        <hr>
+        <div class="register-group d-flex justify-content-center">
+            <button class="btn btn-primary register-institute" type="submit"><i class="fas fa-check"></i>ثبت کردن</button>
+            
+        </div>
+    </div>
+}
+            
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/dashboard/persian-datepicker.css")
+    @Styles.Render("~/Content/plugin/file-uploader/fancy_fileupload.css")
+<!--Chosen Css-->
+@Styles.Render("~/Content/plugin/chosen/chosen.css")
+@Styles.Render("~/Content/plugin/chosen/prism.css")
+}
+
+
+
+
+@section Scripts{
+
+
+    @Scripts.Render("~/Scripts/dashboard/persian-calender/persian-date.js")
+@Scripts.Render("~/Scripts/dashboard/persian-calender/persian-datepicker.js")
+
+@Scripts.Render("~/Content/plugin/file-uploader/jquery.ui.widget.js")
+@Scripts.Render("~/Content/plugin/file-uploader/jquery.fileupload.js")
+@Scripts.Render("~/Content/plugin/file-uploader/jquery.iframe-transport.js")
+@Scripts.Render("~/Content/plugin/file-uploader/jquery.fancy-fileupload.js")
+
+    <!--Chosen Plugin-->
+@Scripts.Render("~/Content/plugin/chosen/chosen.jquery.js")
+
+@Scripts.Render("~/Content/plugin/chosen/prism.js")
+
+@Scripts.Render("~/Content/plugin/chosen/init.js")
+
+@Scripts.Render("~/Content/plugin/chosen/chosen.proto.js")
+
+    
+
+<script>
+    $('.observer-example').persianDatepicker({
+        observer: true,
+        format: 'YYYY/MM/DD',
+        altField: '.observer-example-alt'
+    });
+</script>
+
+<!--For silder-->
+<script>
+    $('#my-file-uploader-institute').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 1000000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : true,
+        // called whenever starting the upload
+        'startupload' : true,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+</script>
+
+<!--For Background-->
+<script>
+    $('#my-file-uploader-background').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 1000000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : null,
+        // called whenever starting the upload
+        'startupload' : null,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+</script>
+
+<!--For Logo-->
+<script>
+    $('#my-file-uploader-logo').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 100000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : null,
+        // called whenever starting the upload
+        'startupload' : null,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+</script>
+
+<!--For Card-->
+<script>
+    $('#my-file-uploader-card').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 100000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : null,
+        // called whenever starting the upload
+        'startupload' : null,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+</script>
+    <script>
+        var current_ostan_code = 0;
+
+        var current_city_code = 0;
+
+        var current_zone_code = 0;
+        
+        $(document).on('change', '#ddl_ostanlist', function () {
+            //alert($(this).find('option:selected').text());
+
+            current_ostan_code = $(this).val();
+
+            current_city_code = 0;
+                      
+            current_zone_code = 0;
+
+            //Set_span_ostan_city_zone();
+            load_cities(current_ostan_code);
+
+            
+        });
+
+        $(document).on('change', '#ddl_cities', function () {
+            current_city_code = $(this).val();
+            current_zone_code = 0;
+            load_zone(current_city_code);
+        });
+
+        function load_cities(Code) {
+
+            $.ajax
+            ({
+                url: "/Institutes/get_cities",
+                data: { Code: Code },
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                cache: !0,
+                datatype: "html",
+                success: function (list) {
+                    $("#ddl_cities").html(list);
+                    
+                },
+                error: function () {
+                    $("#ddl_cities").html("Post Not Found");
+                }
+            })
+
+        }
+
+        function load_zone(Code) {
+
+            $.ajax
+            ({
+                url: "/Institutes/get_zone",
+                data: { Code: Code },
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                cache: !0,
+                datatype: "html",
+                success: function (list) {
+                    $("#ddl_zone").html(list);
+                    
+                },
+                error: function () {
+                    $("#ddl_zone").html("Post Not Found");
+                }
+            })
+
+        }
+
+</script>
+}
+
+

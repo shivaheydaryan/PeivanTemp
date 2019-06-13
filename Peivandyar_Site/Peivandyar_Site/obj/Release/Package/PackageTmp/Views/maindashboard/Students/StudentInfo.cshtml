@@ -1,0 +1,1056 @@
+﻿@model ViewModel.StudentInfoesVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout/_SiteManager.cshtml";
+
+}
+
+@{
+    string InstituteName = "";
+
+    ViewModel.Institute_Info_Session_VM institute_info = null;
+    ViewModel.ClassInfo_VM class_info = null;
+
+    if (Session["Class_info"] != null)
+    {
+        class_info = (ViewModel.ClassInfo_VM)Session["Class_info"];
+    }
+    if (Session["Institute_info"] != null)
+    {
+        institute_info = (ViewModel.Institute_Info_Session_VM)Session["Institute_info"];
+        InstituteName = institute_info.name;
+    }
+    App_Start.Date_Shamsi_Miladi DateConverter = new App_Start.Date_Shamsi_Miladi();
+
+}
+<!--Create Page Here and Footer -->
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 valign-top display-table-row">
+    <div id="content">
+        <header>
+            <div class="action-back">
+                <a href="@Url.Action("Student_list","Student")" class="btn btn-default btn-back pull-left" data-toggle="tooltip" title="">
+                    بازگشت&nbsp;
+                    <i class="fas fa-arrow-alt-circle-left"></i>
+                </a>
+            </div>
+            <h4 class="">اطلاعات دانش آموز</h4>
+            <hr class="line-under-title" />
+        </header>
+
+        <!--Top Note-->
+        <div class="content-inner">
+
+        @if (Model != null)
+        {
+            <div class="profile-student">
+                <div class="row">
+
+                    <div class="col-sm-4 col-xs-12 col-sm-push-8">
+                        <div class="profile-pic">
+                            <img class="img-responsive img-circle" src="~/Content/images/User.png" alt="@Model.firstname" />
+                        </div>
+                    </div>
+                    <!--Row Two-->
+                    <div class="col-sm-4 col-xs-6 col-sm-pull-4">
+                        <div class="profile-info">
+                            <p><b>نام مدرسه : </b>@InstituteName</p>
+                            <p><b>نام پدر : </b>@Model.Fathername</p>
+                            <p><b>نام مادر : </b>@Model.MotherName @Model.Lastname_Mother</p>
+                            <p><b>شماره شناسنامه : </b>@Model.Shsh</p>
+                            @if (Model.gender == null || Model.gender == true)
+                            {
+                                <p><b>جنسیت : </b>مرد</p>
+                            }
+                            else
+                            {
+                                <p><b>جنسیت : </b>زن</p>
+                            }
+                            <p><b>تلفن : </b>@Model.tell</p>
+                            <p><b>معدل کل : </b>****</p>
+                            
+                        </div>
+                    </div>
+                    <!--Row One-->
+                    <div class="col-sm-4 col-xs-6 col-sm-pull-4">
+                        <div class="profile-info">
+                            <p><b>نام : </b>@Model.firstname</p>
+                            <p><b>نام خانوادگی : </b>@Model.lastname</p>
+                            <p><b>کد دانش آموزی : </b>@Model.Student_Code</p>
+                            <p><b>کد ملی : </b>@Model.Code_Melli</p>
+                            @if (Model.birtday != null)
+                            {
+                                <p><b>تاریخ تولد : </b>@DateConverter.MiladiToShamsi((DateTime)Model.birtday)</p>
+                            }
+                            else
+                            {
+                                <p><b>تاریخ تولد : </b>-</p>
+                            }
+                            
+                            <p><b>موبایل : </b>@Model.Mobile</p>
+                            <p><b>آدرس : </b>@Model.Address_Primary</p>
+                            
+                            
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+            <div id="tabs">
+
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active">
+                        <a data-toggle="tab" href="#student-tab-info">
+                            <i class="fas fa-user"></i>
+                            &nbsp;مشخصات فردی
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#student-tab-nomre">
+                            <i class="fas fa-clipboard-list"></i>
+                            &nbsp;نمره ها
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#student-tab-chart">
+                            <i class="fas fa-chart-line"></i>
+                            &nbsp;نمودار پیشرفت
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#student-tab-faaliat">
+                            <i class="fas fa-search"></i>
+                            &nbsp;فعالیت های درسی
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#student-tab-hozor">
+                            <i class="fas fa-check"></i>
+                            &nbsp;حضور و غیاب
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <!--student-tab-info-->
+                    <div id="student-tab-info" class="tab-pane fade in active">
+                        <div class="container">
+                            <div class="student-info-body">
+                                <div class="profile-info">
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                </div>
+
+                                <div class="other-info">
+                                    <h5><i class="fas fa-info-circle icon-family"></i>&nbsp;مشخصات خانوادگی</h5>
+                                </div>
+                                <div class="profile-info">
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                </div>
+
+                                <div class="other-info">
+                                    <h5><i class="fas fa-graduation-cap icon-edu"></i>&nbsp;سوابق تحصیلی</h5>
+                                </div>
+                                <div class="profile-info">
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                </div>
+
+                                <div class="other-info">
+                                    <h5><i class="fas fa-address-card icon-job"></i>&nbsp;وضعیت شغلی</h5>
+                                </div>
+                                <div class="profile-info">
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                </div>
+
+                                <div class="other-info">
+                                    <h5><i class="fas fa-heart icon-health"></i>&nbsp;وضعیت سلامتی</h5>
+                                </div>
+                                <div class="profile-info">
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        <p><b>نام پدر : </b>نادر</p>
+                                        <p><b>نام مدرسه : </b>پویای البرز</p>
+                                        <p><b>نام کلاس : </b>مرداب</p>
+                                        <p><b>معدل کل : </b>۱۸.۶</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr class="line-under-title" />
+                    </div>
+
+                    <!--student-tab-nomre-->
+                    <div id="student-tab-nomre" class="tab-pane fade">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="student-chart-nav">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="class-action-btn">
+                                            <a class="btn btn-md btn-default text-center" href="#" role="button">
+                                                <span class="far fa-eye" aria-hidden="true"></span>&nbsp;&nbsp;نمایش
+                                            </a>
+                                        </div>
+                                    </div> <!--Create Chart-->
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="dropdown body-dropdown">
+                                            <a class="btn btn-default dropdown-toggle chart-tarikh" data-toggle="dropdown" href="#">
+                                                <span class="far fa-calendar-alt"></span>&nbsp;
+                                                تاریخ : <span class="fa fa-angle-down arrow-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu text-right pull-right my-check">
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>فروردین
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>اردیبهشت
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>خرداد
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>تیر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>مرداد
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>شهریور
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>مهر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>آبان
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>آذر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>دی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>بهمن
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>اسفند
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div> <!--Date-->
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="dropdown body-dropdown">
+                                            <a class="btn btn-default dropdown-toggle chart-esme-dars" data-toggle="dropdown" href="#">
+                                                <span class="fas fa-book"></span>&nbsp;
+                                                نام درس : <span class="fa fa-angle-down arrow-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu text-right pull-right">
+                                                <li><a class="all-checked">همه درس ها</a></li>
+                                                <li><a class="all-checked">انظباط</a></li>
+                                                <li class="divider"></li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>ریاضی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>شیمی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>فیزیک
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>علوم
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div> <!--Dars ha-->
+                                </div>
+
+                                <hr class="line-under-title" />
+
+                                <div class="student-nomre-body">
+                                    <!-- Table Body -->
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered" id="table-nomreh">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center th-row">ردیف</th>
+                                                    <th class="text-center th-dars-name">درس</th>
+                                                    <th class="text-center th-nomre">نمره</th>
+                                                    <th class="text-center th-teacher-name">نام معلم</th>
+                                                    <th class="text-center th-how-nomre">نوع نمره</th>
+                                                    <th class="text-center th-date">تاریخ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="student-nomre">
+                                                    <td class="text-center td-row">۱</td>
+                                                    <td class="text-center td-dars-name">ریاضی</td>
+                                                    <td class="text-center td-nomre">۱۹</td>
+                                                    <td class="text-center td-teacher-name">میرزایی</td>
+                                                    <td class="text-center td-how-nomre">کلاسی</td>
+                                                    <td class="text-center td-date">۱۳۹۷/۰۸/۲۳</td>
+                                                </tr>
+                                                <tr class="student-nomre">
+                                                    <td class="text-center td-row">۲</td>
+                                                    <td class="text-center td-dars-name">علوم</td>
+                                                    <td class="text-center td-nomre">۱۶</td>
+                                                    <td class="text-center td-teacher-name">شعبانی</td>
+                                                    <td class="text-center td-how-nomre">کلاسی</td>
+                                                    <td class="text-center td-date">۱۳۹۷/۰۸/۲۴</td>
+                                                </tr>
+                                                <tr class="student-nomre">
+                                                    <td class="text-center td-row">۳</td>
+                                                    <td class="text-center td-dars-name">زیست</td>
+                                                    <td class="text-center td-nomre">۱۷</td>
+                                                    <td class="text-center td-teacher-name">خدابنده</td>
+                                                    <td class="text-center td-how-nomre">شفاهی</td>
+                                                    <td class="text-center td-date">۱۳۹۷/۰۸/۲۵</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="line-under-title" />
+                    </div>
+
+                    <!--student-tab-chart-->
+                    <div id="student-tab-chart" class="tab-pane fade">
+                        <div class="container">
+                            <div class="row">
+                                <div class="student-chart-nav">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="class-action-btn">
+                                            <a class="btn btn-md btn-default text-center" href="#" role="button">
+                                                <span class="fas fa-chart-line" aria-hidden="true"></span>&nbsp;&nbsp;تهیه گزارش
+                                            </a>
+                                        </div>
+                                    </div> <!--Create Chart-->
+                                    <!--<div class="col-md-4 col-sm-6">
+                                        <div class="choose-chart">
+                                         نمودار خطی
+                                         <label class="switch">
+                                             <input type="checkbox">
+                                             <span class="slider"></span>
+                                         </label>
+                                         نمودار ستونی
+                                        </div>
+                                    </div> Choose-->
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="dropdown body-dropdown">
+                                            <a class="btn btn-default dropdown-toggle chart-tarikh" data-toggle="dropdown" href="#">
+                                                <span class="far fa-calendar"></span>&nbsp;
+                                                تاریخ : <span class="fa fa-angle-down arrow-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu text-right pull-right my-check">
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>فروردین
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>اردیبهشت
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>خرداد
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>تیر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>مرداد
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>شهریور
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>مهر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>آبان
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>آذر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>دی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>بهمن
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>اسفند
+                                                    </label>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div> <!--Date-->
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="dropdown body-dropdown">
+                                            <a class="btn btn-default dropdown-toggle chart-esme-dars" data-toggle="dropdown" href="#">
+                                                <span class="fas fa-book"></span>&nbsp;
+                                                نام درس : <span class="fa fa-angle-down arrow-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu text-right pull-right">
+                                                <li><a class="all-checked">همه درس ها</a></li>
+                                                <li><a class="all-checked">انظباط</a></li>
+                                                <li class="divider"></li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>ریاضی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>شیمی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>فیزیک
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>علوم
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div> <!--Dars ha-->
+                                </div>
+
+                            </div> <!--container-->
+                            <hr class="line-under-title" />
+
+                            <div class="student-chart-body">
+                                <div class="container">
+                                    <div class="col-md-6">
+                                        <h4>نمودار ستونی</h4>
+                                        <div class="chart">
+                                            <canvas id="singelBarChart" style="height:250px"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>نمودار دایره ایی</h4>
+                                        <div class="chart">
+                                            <canvas id="doughutChart" style="height:250px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="line-under-title" />
+                        </div>
+                    </div>
+
+                    <!--student-tab-faaliat-->
+                    <div id="student-tab-faaliat" class="tab-pane fade">
+                        <div class="box-body no-padding">
+
+                            <!-- Table Body -->
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="table-faaliat-read">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center th-row">ردیف</th>
+                                            <th class="text-center th-subject">موضوع</th>
+                                            <th class="text-center th-helper">راهنما</th>
+                                            <th class="text-center th-date">تاریخ</th>
+                                            <th class="text-center th-good">کیفیت</th>
+                                            <th class="text-center th-attach">فایل پیوستی</th>
+                                            <th class="text-center th-tozihat">توضیحات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="faaliat-row">
+                                            <td class="text-center td-row">۱</td>
+                                            <td class="text-center td-subject">
+                                                <p>بررسی کمبود آب</p>
+                                            </td>
+                                            <td class="text-center td-helper">
+                                                <p>استاد احمد میرزایی</p>
+                                            </td>
+                                            <td class="text-center td-date">
+                                                <p>۱۳۹۷/۰۸/۱۳</p>
+                                            </td>
+                                            <td class="text-center td-good-1">
+                                                <p>عالی</p>
+                                                <span class="fas fa-check"></span>
+                                            </td>
+                                            <td class="text-center td-attach">
+                                                <a href="#" class="link-attach">
+                                                    <p>نام فایل پیوستی</p>
+                                                    <span class="fas fa-file-pdf"></span>
+                                                </a>
+                                            </td>
+                                            <td class="text-center td-tozihat">
+                                                <p>هیچ توضیحی ندارد.</p>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="faaliat-row">
+                                            <td class="text-center td-row">۱</td>
+                                            <td class="text-center td-subject">
+                                                <p>مراحل تولید صفحه گوشی های لمسی</p>
+                                            </td>
+                                            <td class="text-center td-helper">
+                                                <p>استاد علی سلطانیان</p>
+                                            </td>
+                                            <td class="text-center td-date">
+                                                <p>۱۳۹۷/۰۹/۲۶</p>
+                                            </td>
+                                            <td class="text-center td-good-2">
+                                                <p>خوب</p>
+                                                <span class="fas fa-check"></span>
+                                            </td>
+                                            <td class="text-center td-attach">
+                                                <a href="#" class="link-attach">
+                                                    <p>نام فایل پیوستی</p>
+                                                    <span class="fas fa-file-pdf"></span>
+                                                </a>
+                                            </td>
+                                            <td class="text-center td-tozihat">
+                                                <p>ترجمه مقاله انگلیسی</p>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="faaliat-row">
+                                            <td class="text-center td-row">۱</td>
+                                            <td class="text-center td-subject">
+                                                <p>مراحل تولید صفحه گوشی های لمسی</p>
+                                            </td>
+                                            <td class="text-center td-helper">
+                                                <p>استاد علی سلطانیان</p>
+                                            </td>
+                                            <td class="text-center td-date">
+                                                <p>۱۳۹۷/۰۹/۲۶</p>
+                                            </td>
+                                            <td class="text-center td-good-3">
+                                                <p>متوسط</p>
+                                                <span class="fas fa-check"></span>
+                                            </td>
+                                            <td class="text-center td-attach">
+                                                <a href="#" class="link-attach">
+                                                    <p>نام فایل پیوستی</p>
+                                                    <span class="fas fa-file-pdf"></span>
+                                                </a>
+                                            </td>
+                                            <td class="text-center td-tozihat">
+                                                <p>ترجمه مقاله انگلیسی</p>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="faaliat-row">
+                                            <td class="text-center td-row">۱</td>
+                                            <td class="text-center td-subject">
+                                                <p>مراحل تولید صفحه گوشی های لمسی</p>
+                                            </td>
+                                            <td class="text-center td-helper">
+                                                <p>استاد علی سلطانیان</p>
+                                            </td>
+                                            <td class="text-center td-date">
+                                                <p>۱۳۹۷/۰۹/۲۶</p>
+                                            </td>
+                                            <td class="text-center td-good-4">
+                                                <p>ضعیف</p>
+                                                <span class="fas fa-check"></span>
+                                            </td>
+                                            <td class="text-center td-attach">
+                                                <a href="#" class="link-attach">
+                                                    <p>نام فایل پیوستی</p>
+                                                    <span class="fas fa-file-pdf"></span>
+                                                </a>
+                                            </td>
+                                            <td class="text-center td-tozihat">
+                                                <p>ترجمه مقاله انگلیسی</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--student-tab-hozor-->
+                    <div id="student-tab-hozor" class="tab-pane fade">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="student-chart-nav">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="class-action-btn">
+                                            <a class="btn btn-md btn-default text-center" href="#" role="button">
+                                                <span class="far fa-eye" aria-hidden="true"></span>&nbsp;&nbsp;نمایش
+                                            </a>
+                                        </div>
+                                    </div> <!--Create Chart-->
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="dropdown body-dropdown">
+                                            <a class="btn btn-default dropdown-toggle" id="chart-tarikh" data-toggle="dropdown" href="#">
+                                                <span class="far fa-calendar-alt"></span>&nbsp;
+                                                تاریخ : <span class="fa fa-angle-down arrow-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu text-right pull-right my-check">
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>فروردین
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>اردیبهشت
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>خرداد
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>تیر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>مرداد
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>شهریور
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>مهر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>آبان
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>آذر
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>دی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>بهمن
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="is_name">
+                                                        <span class="checkmark"></span>اسفند
+                                                    </label>
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+                                    </div> <!--Date-->
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="dropdown body-dropdown">
+                                            <a class="btn btn-default dropdown-toggle chart-esme-dars" data-toggle="dropdown" href="#">
+                                                <span class="fas fa-book"></span>&nbsp;
+                                                نام درس : <span class="fa fa-angle-down arrow-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu text-right pull-right">
+                                                <li><a class="all-checked">همه درس ها</a></li>
+                                                <li><a class="all-checked">انظباط</a></li>
+                                                <li class="divider"></li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>ریاضی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>شیمی
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>فیزیک
+                                                    </label>
+                                                </li>
+
+                                                <li>
+                                                    <label class="check">
+                                                        <input type="checkbox" name="moon_name">
+                                                        <span class="checkmark"></span>علوم
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div> <!--Dars ha-->
+                                </div>
+
+                                <hr class="line-under-title" />
+
+                                <div class="student-hozor-body">
+                                    <!-- Table Body -->
+                                    <div class="table-responsived">
+                                        <table class="table table-striped table-bordered table-hover" id="table-hozor">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center th-row">ردیف</th>
+                                                    <th class="text-center th-date">تاریخ</th>
+                                                    <th class="text-center th-days">روز</th>
+                                                    <th class="text-center th-time">زنگ اول</th>
+                                                    <th class="text-center th-time">زنگ دوم</th>
+                                                    <th class="text-center th-time">زنگ سوم</th>
+                                                    <th class="text-center th-time">زنگ چهارم</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="student-hozor">
+                                                    <td class="text-center td-row">۱</td>
+                                                    <td class="text-center td-date">۹۷/۰۷/۰۱</td>
+                                                    <td class="text-center td-days">شنبه</td>
+                                                    <td class="text-center td-time hozor-green">ریاضی</td>
+                                                    <td class="text-center td-time hozor-green">علوم</td>
+                                                    <td class="text-center td-time qayeb">فیزیک</td>
+                                                    <td class="text-center td-time hozor-green">شیمی</td>
+                                                </tr>
+                                                <tr class="student-hozor">
+                                                    <td class="text-center td-row">۲</td>
+                                                    <td class="text-center td-date">۹۷/۰۷/۰۲</td>
+                                                    <td class="text-center td-days">یکشنبه</td>
+                                                    <td class="text-center td-time hozor">ریاضی</td>
+                                                    <td class="text-center td-time hozor">علوم</td>
+                                                    <td class="text-center td-time hozor-yellow">فیزیک</td>
+                                                    <td class="text-center td-time hozor">شیمی</td>
+                                                </tr>
+                                                <tr class="student-hozor">
+                                                    <td class="text-center td-row">۳</td>
+                                                    <td class="text-center td-date">۹۷/۰۷/۰۳</td>
+                                                    <td class="text-center td-days">دوشنبه</td>
+                                                    <td class="text-center td-time hozor-green">ریاضی</td>
+                                                    <td class="text-center td-time hozor-green">علوم</td>
+                                                    <td class="text-center td-time hozor">فیزیک</td>
+                                                    <td class="text-center td-time hozor-red">شیمی</td>
+                                                </tr>
+                                                <tr class="student-hozor">
+                                                    <td class="text-center td-row">۴</td>
+                                                    <td class="text-center td-date">۹۷/۰۷/۰۴</td>
+                                                    <td class="text-center td-days">سه شنبه</td>
+                                                    <td class="text-center td-time hozor-red">ریاضی</td>
+                                                    <td class="text-center td-time qayeb">علوم</td>
+                                                    <td class="text-center td-time hozor">فیزیک</td>
+                                                    <td class="text-center td-time hozor">شیمی</td>
+                                                </tr>
+                                                <tr class="student-hozor">
+                                                    <td class="text-center td-row">۵</td>
+                                                    <td class="text-center td-date">۹۷/۰۷/۰۵</td>
+                                                    <td class="text-center td-days">چهارشنبه</td>
+                                                    <td class="text-center td-time hozor-yellow">ریاضی</td>
+                                                    <td class="text-center td-time hozor-yellow">علوم</td>
+                                                    <td class="text-center td-time hozor-red">فیزیک</td>
+                                                    <td class="text-center td-time hozor-red">شیمی</td>
+                                                </tr>
+                                                <tr class="student-hozor">
+                                                    <td class="text-center td-row">۶</td>
+                                                    <td class="text-center td-date">۹۷/۰۷/۰۶</td>
+                                                    <td class="text-center td-days">پنجشنبه</td>
+                                                    <td class="text-center td-time hozor-green">ریاضی</td>
+                                                    <td class="text-center td-time hozor-yellow">علوم</td>
+                                                    <td class="text-center td-time qayeb">فیزیک</td>
+                                                    <td class="text-center td-time qayeb">شیمی</td>
+                                                </tr>
+                                                <tr class="student-hozor">
+                                                    <td class="text-center td-row">۷</td>
+                                                    <td class="text-center td-date">۹۷/۰۷/۰۷</td>
+                                                    <td class="text-center td-days">جمعه</td>
+                                                    <td class="text-center td-time qayeb">ریاضی</td>
+                                                    <td class="text-center td-time qayeb">علوم</td>
+                                                    <td class="text-center td-time qayeb">فیزیک</td>
+                                                    <td class="text-center td-time qayeb">شیمی</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="line-under-title" />
+
+                        <!-- Next & Prev Btn -->
+                        <div class="text-center" id="next-prev-btn">
+
+                            <a class="btn btn-sm btn-default" href="#" role="button">
+                                <span class="fas fa-angle-double-right" aria-hidden="true"></span>&nbsp;اولین هفته
+                            </a>
+                            <a class="btn btn-sm btn-default" href="#" role="button">
+                                <span class="fas fa-angle-right" aria-hidden="true"></span>&nbsp;هفته ی قبل
+                            </a>
+
+                            <a>&nbsp;&nbsp;&nbsp;</a>
+
+                            <a class="btn btn-sm btn-default" href="#" role="button">
+                                هفته ی بعد&nbsp;<span class="fas fa-angle-left" aria-hidden="true"></span>
+                            </a>
+                            <a class="btn btn-sm btn-default" href="#" role="button">
+                                آخرین هفته&nbsp;<span class="fas fa-angle-double-left" aria-hidden="true"></span>
+                            </a>
+
+                        </div>
+
+                        <hr class="line-under-title" />
+
+                    </div>
+
+                </div><!--tab-content-->
+
+            </div><!--id=tabs-->
+
+        </div><!--content-inner-->
+
+    </div>
+</div>
+
+<!--End Page Body-->

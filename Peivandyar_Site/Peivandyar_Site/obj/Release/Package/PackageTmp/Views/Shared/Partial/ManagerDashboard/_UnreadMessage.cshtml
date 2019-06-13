@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ViewModel.MessageListVM>
+    @{ 
+        App_Start.Date_Shamsi_Miladi DateConverter = new App_Start.Date_Shamsi_Miladi();
+
+    }
+<!--Messgae Notification-->
+
+    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <span class="fas fa-envelope header-icon" aria-hidden="true"></span>
+        @if (Model != null)
+        {
+            if (Model.Count() > 0)
+            {
+                <span class="label label-message" aria-hidden="true">@Model.Count()</span>
+            }
+
+        }
+        
+    </a>
+    
+    <ul class="dropdown-menu dropdown-nav-message">
+        <li class="notifi-title">پیام ها</li>
+        <li class="list-group">
+
+
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <!--List Item-->
+                    <a href="#" class="list-group-item text-right">
+                        <div class="media">
+                            <div class="media-heading">
+                                <i class="fas fa-envelope inside-icon-msg"></i>@item.Msg_Content
+                            </div>
+                            <p class="m-0">
+                                @if (item.Date != null)
+                                {
+                                    <span class="text-date pull-left">@DateConverter.MiladiToShamsi((DateTime)item.Date)</span>
+                                }
+                                <span class="text-from">از: @item.sender</span>
+                                <span class="text-school"> @item.name</span>
+                            </p>
+                        </div>
+                    </a>
+                }
+            }
+            
+
+            <a href="@Url.Action("Index","Messages",null)" class="list-group-item text-center all-noti">
+                دیدن همه پیام ها&nbsp;&nbsp;<i class="far fa-arrow-alt-circle-left"></i>
+            </a>
+        </li>
+
+    </ul>
+ <!--End Notification-->

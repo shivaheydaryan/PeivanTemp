@@ -1,0 +1,484 @@
+﻿
+@model IEnumerable<ViewModel.Class_List_VM>
+@using PagedList.Mvc;
+@using Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout/_SiteManager.cshtml";
+
+}
+@{
+    Int64 Institute_id = 0;
+    ViewModel.Institute_Info_Session_VM institute_info = new ViewModel.Institute_Info_Session_VM();
+    if (Session["Institute_info"] != null)
+    {
+        institute_info = (ViewModel.Institute_Info_Session_VM)Session["Institute_info"];
+        Institute_id = institute_info.id;
+    }
+
+    List<Term> institute_terms = new List<Term>();
+    if (ViewBag.institute_terms != null)
+    {
+        institute_terms = (List<Term>)ViewBag.institute_terms;
+    }
+
+    Term termselect = new Term(), current_term = new Term();
+    if (Session["TermSelect"] != null)
+    {
+        termselect = (Term)Session["TermSelect"];
+    }
+    if (Session["CurrentTerm"] != null)
+    {
+        current_term = (Term)Session["CurrentTerm"];
+    }
+
+    int Total_item, Total_page, Current_page;
+    Total_item = ViewBag.Total_item;
+    Total_page = ViewBag.Total_page;
+    Current_page = ViewBag.Current_page + 1;
+
+
+
+    int? count_student_institute = 0;
+    if (Model != null)
+    {
+        count_student_institute = Model.Sum(p => p.student_count);
+    }
+
+    int? count_class_institute = 0;
+    if (Model != null)
+    {
+        count_class_institute = Total_item;
+    }
+
+    string ClassName = "";
+    if(ViewBag.ClassName!=null)
+    {
+        ClassName = (string)ViewBag.ClassName;
+    }
+
+
+
+
+}
+
+    
+
+
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 valign-top display-table-row">
+    
+    <div id="content">
+        <header>
+            @if (institute_info != null)
+            {
+                <h4 class="institute-name">
+                    @institute_info.Institute_Types_Caption @institute_info.name (@institute_info.boyOrGirl)
+                    <a href="#" class="btn btn-default-edit">
+                        <span class="fas fa-cog" aria-hidden="true"></span>
+                    </a>
+                </h4>
+                <p>دارای @count_class_institute کلاس - @count_student_institute نفر دانش آموز</p>
+            }
+            
+
+            <div class="dropdown body-dropdown choose-date-dropdown pull-left">
+                @if (termselect != null)
+                {
+                    <a class="btn btn-default dropdown-toggle name-dars" data-toggle="dropdown" href="#">
+                        @termselect.Description<span class="fas fa-angle-down arrow-down"></span>
+                    </a>
+                }
+                else if (current_term!=null)
+                {
+                    <a class="btn btn-default dropdown-toggle name-dars" data-toggle="dropdown" href="#">
+                        @current_term.Description<span class="fas fa-angle-down arrow-down"></span>
+                    </a>
+                }
+                
+                
+                <ul class="dropdown-menu text-right">
+                    @foreach (var item in institute_terms)
+                    {
+                        int termid = item.id;
+
+
+                        string currenttermstr = "";
+                        if (item.Active == true)
+                        {
+                            currenttermstr = "(جاری)";
+
+                        }
+
+                        if (termid == termselect.id)
+                        {
+                            <li class="active"><a href="@Url.Action("SwichTerm", "Classes", termid)"><i class="fa fa-check pull-left"></i>ترم @item.Term_Number @item.Description @currenttermstr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("SwichTerm", "Classes", new { id = termid })">ترم @item.Term_Number @item.Description @currenttermstr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                        }
+
+
+                    }
+                    
+                    
+                </ul>
+                
+            </div>
+            <hr class="line-under-title" />
+
+            <!--Breadcrumb-->
+            @if (institute_info != null)
+            {
+                <ol class="breadcrumb">
+                    <li><a href="#">@institute_info.name</a></li>
+                    <li></li>
+                </ol>
+            }
+            
+        </header>
+
+        <!--Alert Msg-->
+        <div class="alert alert-success fade in hidden">
+            <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+            با موفقیت ثبت گردید!
+        </div>
+
+        <div class="alert alert-danger fade in hidden">
+            <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+            خطا در ثبت اطلاعات
+        </div>
+
+        <div class="alert alert-warning fade in hidden">
+            <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+            ارتباط با سرور قطع شده است!
+        </div>
+
+        <!--content-inner-->
+        <div class="content-inner">
+            <div class="row">
+                @using (@Html.BeginForm("Index", "Classes", FormMethod.Post))
+                {
+                    <input name="page" type="hidden" value="@Current_page" />
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input name="ClassName" type="text" class="form-control" id="class-search" value="@ClassName" placeholder="جستجو..." />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default" id="search-btn">برو</button>
+                            </span>
+                        </div>
+                    </div>
+                }
+            
+
+                <div class="col-sm-6">
+                    <div class="class-action-btn">
+
+                        <!--Modal-->
+                        <a class="btn btn-md btn-default" href="#" data-toggle="modal" data-target="#modal-add-class" role="button">
+                            <span class="fas fa-plus-circle" aria-hidden="true"></span>&nbsp;اضافه کردن کلاس جدید
+                        </a>
+
+                        <a class="btn btn-md btn-green" href="class-chart.html" role="button">
+                            <span class="fas fa-chart-line" aria-hidden="true"></span>&nbsp;گزارش گیری
+                        </a>
+
+                    </div>
+                </div> <!--col-sm-6-->
+            </div> <!--End Row-->
+            <!--Class Body-->
+            <div class="row">
+                <div class="class-body">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <div class="card-class">
+                                <a href="@Url.Action("ClassInfo", "Classes", new { Class_id = @item.id })">
+                                    <h4>کلاس @item.name</h4>
+                                    <p><b>تعداد دانش آموزها : </b>@item.student_count نفر</p>
+                                    <p class="full-class"><b>ظرفیت کلاس : </b>@item.capacity نفر</p>
+                                    <i class="fas fa-chalkboard"></i>
+                                </a>
+                                <a id="@item.id" class="btn btn-xs btn-default edit-prompt" href="#" data-toggle="modal" data-target="#mymodal-edit" role="button">
+                                    <span class="fas fa-pencil-alt" aria-hidden="true"></span>&nbsp;ویرایش
+                                </a>
+                            </div>
+
+                        </div>
+                    }
+                    
+
+                    
+                </div>
+            </div><!--End Class Body-->
+            <!--Modal add Body-->
+            <div class="modal fade" id="modal-add-class" role="dialog">
+                <div class="modal-dialog">
+                    <!--Modal content-->
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close pull-left" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">اضافه کردن کلاس جدید</h4>
+                        </div><!--End modal-header-->
+                    @if (current_term.id != termselect.id)
+                    {
+                        <div class="alert alert-warning fade in">
+                            <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+                            ترم انتخاب شده با ترم فعال آموزشگاه یکسان نیست . کلاس شما به ترم انتخاب شده شما اضافه خواهد شد .
+                        </div>
+                    }
+                        
+                    @using (@Html.BeginForm("Create", "Classes", FormMethod.Post))
+                    {
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-push-6">
+                                        <h5>نام کلاس:</h5>
+                                        <input name="Name" type="text" class="input-modal" />
+                                    </div>
+                                    <div class="col-md-6 col-md-pull-6">
+                                        <h5>پایه تحصیلی :</h5>
+                                        @{List<Grade> myGrade2 = (List<Grade>)ViewBag.Grades; }
+                                        <select name="Gradeid" class="form-control">
+                                            <option value="0">انتخاب کنید ...</option>
+                                            @if (myGrade2 != null)
+                                            {
+                                                foreach (var item in myGrade2)
+                                                {
+                                                    <option value="@item.id">@item.Name</option>
+                                                }
+                                            }
+                                            
+                                            
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <h5>حداکثر ظرفیت کلاس:</h5>
+                                        <input name="capasity" type="text" class="input-modal" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>تعداد دانش آموز:</h5>
+                                        <input type="text" class="input-modal" />
+                                    </div>
+                                </div><!--form-group-->
+                            </div><!--row-->
+                        </div><!--End modal-body-->
+
+                        <div class="modal-footer">
+                            <div class="modal-footer-btn">
+                                
+                                <button type="submit" name="Submit" class="btn btn-default" data-send="modal">
+                                    <span class="fas fa-check-circle"></span>&nbsp;ثبت کلاس
+                                </button>
+
+                                
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <span class="fas fa-times-circle"></span>&nbsp;انصراف
+                                </button>
+                            </div>
+                        </div><!--End modal-footer-->
+                                            }
+                    </div><!--End modal-content-->
+                </div><!--End modal-dialoge-->
+            </div> <!--End add Modal-->
+            <!--Edit Modal Body-->
+            <div class="modal fade" id="mymodal-edit" role="dialog">
+                <div class="modal-dialog">
+                    <!--Modal content-->
+@using (@Html.BeginForm("Edit", "Classes", FormMethod.Post))
+{
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close pull-left" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">ویرایش کلاس</h4>
+                        </div><!--End modal-header-->
+                        
+                        
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-push-6">
+                                        <input id="edit_classid" name="id" type="hidden" />
+                                        <h5>نام کلاس:</h5>
+                                        <input id="edit_classname" name="name" type="text" class="input-modal" />
+                                    </div>
+                                    <div class="col-md-6 col-md-pull-6">
+                                        <h5>پایه تحصیلی :</h5>
+                                        @{List<Grade> myGrade = (List<Grade>)ViewBag.Grades; }
+                                        <select id="edit_classGradeid" name="Gradeid" class="form-control">
+                                            <option value="0">انتخاب کنید ...</option>
+                                            @if (myGrade != null)
+                                            {
+                                                foreach (var item in myGrade)
+                                                {
+                                                    <option value="@item.id">@item.Name</option>
+                                                }
+                                            }
+                                            
+
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <h5>حداکثر ظرفیت کلاس:</h5>
+                                        <input id="edit_classcapasity" name="capasity" type="text" class="input-modal" />
+                                    </div>
+                                    
+                                </div><!--form-group-->
+                            </div><!--row-->
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer-btn">
+                                <button id="btn_editclass" type="submit" class="btn btn-default" data-send="modal">
+                                    <span class="fas fa-check-circle"></span>&nbsp;ثبت تغییرات
+                                </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    <span class="fas fa-times-circle"></span>&nbsp;انصراف
+                                </button>
+                                <button  type="button" class="btn btn-danger pull-left delete-prompt" data-dismiss="moda" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                                    <span class="far fa-trash-alt"></span>&nbsp;حذف کردن کلاس
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                                            }
+                </div>
+            </div> <!--End Edit Modal-->
+
+            <!-- Modal For Delete Class -->
+            <div class="modal fade" id="modal-delete" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <!--
+                 <div class="modal-header">
+                 </div> -->
+                        <div class="modal-body text-center">
+                            <h4>آیا مایل به حذف هستید؟</h4>
+                        </div>
+@using (@Html.BeginForm("Delete", "Classes", FormMethod.Post))
+{
+                        <div class="modal-footer text-center">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">خیر</button>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="classiddel" name="id" type="hidden" />
+                                <button  type="submit" class="btn btn-danger" data-send="modal">بله</button>
+                            </div>
+                        </div>
+}
+
+                    </div>
+                </div>
+            </div>
+
+        </div> <!--End content-inner-->
+
+
+        <hr class="line-under-title" />
+
+        <!--Pagination-->
+
+        
+        <div class="row class-paging">
+            <div class="col-md-12 text-center">
+                
+                    <ul class="pagination d-flex justify-content-center">
+                        @if (Model != null)
+                        {
+                            if (Current_page != 1)
+                            {
+                                <li><a href="@Url.Action("Index","Classes",new { ClassName=ClassName,page=1})">&raquo;</a></li>
+                            }
+
+                            for (int i = 1; i <= Total_page; i++)
+                            {
+                                if (Current_page == i)
+                                {
+                                    <li class="active"><a href="@Url.Action("Index","Classes",new { ClassName=ClassName,page=i})">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li ><a href="@Url.Action("Index","Classes",new { ClassName=ClassName,page=i})">@i</a></li>
+                                }
+                            }
+
+                            if (Current_page != Total_page)
+                            {
+                                <li><a href="@Url.Action("Index","Classes",new { ClassName=ClassName,page=Total_page})">&laquo;</a></li>
+                            }
+                        }
+
+                        
+                    </ul>
+                
+            </div>
+        </div> <!--End Pagination-->
+
+    </div>
+
+    <!--Footer-->
+    <!--Footer
+    <footer id="admin-footer" class="hidden-xs">
+        <div class="row pull-right">
+            <p>پیوندیار سیستم</p>
+        </div>
+    </footer> -->
+
+</div>
+<script>
+
+    
+    $(document).ready(function (ev) {
+        var ClassidEdit;
+        $(document).on('click', '.edit-prompt', function () {
+            ClassidEdit = $(this).attr('id');
+            $("#classiddel").val(ClassidEdit);
+            loadClassinfo();
+        });
+
+        function loadClassinfo() {
+            if (ClassidEdit != '') {
+                $.ajax
+        ({
+            url: "/Classes/Load",
+            data: { classid: ClassidEdit },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "json",
+            success: function (result) {
+
+                if (!jQuery.isEmptyObject(result)) {
+
+                    
+                    $("#edit_classid").val(result.myclass.id);
+                    $("#edit_classname").val(result.myclass.Name);
+                    $("#edit_classcapasity").val(result.myclass.capasity);
+                    $("#edit_classGradeid").val(result.myclass.Gradeid);
+
+                }
+                else
+                {
+                    alert("is null");
+                }
+                
+
+
+            },
+            error: function () {
+                alert("error");
+                //---- show error modal
+            }
+        })
+            }
+        }
+
+
+    });
+</script>

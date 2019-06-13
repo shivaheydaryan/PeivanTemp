@@ -1,0 +1,781 @@
+﻿@model IEnumerable<ViewModel.Schedule_VM>
+<!--Barname Haftegi-->
+
+@{ 
+
+    byte? count_ring = Model.Max(p => p.order_ring);
+
+}
+
+<table class="table table-striped table-bordered" id="table-barname-list">
+        <thead>
+            <tr>
+                <th  class="text-center th-rooz">روز</th>
+
+                    @for (byte i = 1; i <= count_ring; i++)
+                    {
+                        <th  class="text-center th-zang-x">
+                            <span>زنگ @i</span>
+
+                        </th>
+                    }
+
+                <th class="text-center th-zang-x">
+                    <span>ویرایش</span>
+
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <!-- -------------- شنبه---------------- -->
+
+            @{
+                var shanbe_schedule = Model.Where(p => p.order_week == 1).ToList();
+            }
+            @if (shanbe_schedule.Count > 0)
+            {
+
+
+                <tr class="barnameh-days">
+
+                    <td class="text-center td-barname-roz">شنبه</td>
+                    @{int counter_j = 0;
+
+                        bool endelement = false; }
+
+                    @for (int i = 0; i < count_ring; i++)
+                    {
+
+                        if (!endelement)
+                        {
+                            if (shanbe_schedule.ElementAt(counter_j).order_ring == i + 1)
+                            {
+
+
+                                <td class="text-center td-barname-info">
+
+
+                                    @{
+                                        string coursename = "", teachername = "", coursetype_name = "";
+                                    }
+
+                                    @if (shanbe_schedule.ElementAt(counter_j).Type_Ring == 0)
+                                    {
+                                        coursename = shanbe_schedule.ElementAt(counter_j).Course_one_name;
+                                        teachername = shanbe_schedule.ElementAt(counter_j).teacher_one_name;
+                                        coursetype_name = "";//---- زنگ کامل را نشان نمی دهیم
+                                    }
+                                    else if (shanbe_schedule.ElementAt(counter_j).Type_Ring == 1)
+                                    {
+                                        coursename = shanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + shanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = shanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + shanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "چرخشی";
+                                    }
+                                    else if (shanbe_schedule.ElementAt(counter_j).Type_Ring == 2)
+                                    {
+                                        coursename = shanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + shanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = shanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + shanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "تک زنگ";
+                                    }
+
+                                    <h4>@coursename</h4>
+                                    <h5>@teachername</h5>
+                                    @if (@coursetype_name != "")
+                                    {
+                                        <p>@coursetype_name</p>
+                                    }
+                                    @{
+                                        string startdate = ((DateTime)shanbe_schedule.ElementAt(counter_j).start_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string enddate = ((DateTime)shanbe_schedule.ElementAt(counter_j).end_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        startdate = startdate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                        enddate = enddate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                    }
+                                    <p>@startdate الی @enddate</p>
+                                    @if (shanbe_schedule.Count == counter_j + 1)
+                                    {
+                                        endelement = true;
+                                    }
+                                    else
+                                    {
+                                        counter_j++;
+                                    }
+
+                                </td>
+
+                                        }
+
+
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+                    <td class="text-center td-barname-roz">
+                        
+                        <a class="btn btn-primary  btn-xs" href="@Url.Action("CreateSchedule", "Classes", new { shanbe_schedule.ElementAt(counter_j).order_week })" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;ویرایش
+                        </a>
+                        <a id="@shanbe_schedule.ElementAt(counter_j).order_week" class="btn btn-danger btn-xs delete-prompt" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;حذف
+                        </a>
+                    </td>
+                </tr>
+                                        }
+
+            <!-- -------------- یکشنبه---------------- -->
+            @{
+                var yeshanbe_schedule = Model.Where(p => p.order_week == 2).ToList();
+            }
+            @if (yeshanbe_schedule.Count > 0)
+            {
+
+
+                <tr class="barnameh-days">
+
+                    <td class="text-center td-barname-roz">یک شنبه</td>
+                    @{int counter_j = 0;
+
+                        bool endelement = false; }
+
+                    @for (int i = 0; i < count_ring; i++)
+                    {
+
+                        if (!endelement)
+                        {
+                            if (yeshanbe_schedule.ElementAt(counter_j).order_ring == i + 1)
+                            {
+
+
+                                <td class="text-center td-barname-info">
+
+
+                                    @{
+                                        string coursename = "", teachername = "", coursetype_name = "";
+                                    }
+
+                                    @if (yeshanbe_schedule.ElementAt(counter_j).Type_Ring == 0)
+                                    {
+                                        coursename = yeshanbe_schedule.ElementAt(counter_j).Course_one_name;
+                                        teachername = yeshanbe_schedule.ElementAt(counter_j).teacher_one_name;
+                                        coursetype_name = "";//---- زنگ کامل را نشان نمی دهیم
+                                    }
+                                    else if (yeshanbe_schedule.ElementAt(counter_j).Type_Ring == 1)
+                                    {
+                                        coursename = yeshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + yeshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = yeshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + yeshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "چرخشی";
+                                    }
+                                    else if (yeshanbe_schedule.ElementAt(counter_j).Type_Ring == 2)
+                                    {
+                                        coursename = yeshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + yeshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = yeshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + yeshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "تک زنگ";
+                                    }
+
+                                    <h4>@coursename</h4>
+                                    <h5>@teachername</h5>
+                                    @if (@coursetype_name != "")
+                                    {
+                                        <p>@coursetype_name</p>
+                                    }
+                                    @{
+                                        string startdate = ((DateTime)yeshanbe_schedule.ElementAt(counter_j).start_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string enddate = ((DateTime)yeshanbe_schedule.ElementAt(counter_j).end_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        startdate = startdate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                        enddate = enddate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                    }
+                                    <p>@startdate الی @enddate</p>
+                                    @if (yeshanbe_schedule.Count == counter_j + 1)
+                                    {
+                                        endelement = true;
+                                    }
+                                    else
+                                    {
+                                        counter_j++;
+                                    }
+
+                                </td>
+
+                                        }
+
+
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+                    <td class="text-center td-barname-roz">
+                        <a class="btn btn-primary  btn-xs" href="@Url.Action("CreateSchedule", "Classes", new { shanbe_schedule.ElementAt(counter_j).order_week })" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;ویرایش
+                        </a>
+                        <a id="@shanbe_schedule.ElementAt(counter_j).order_week" class="btn btn-danger btn-xs delete-prompt" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;حذف
+                        </a>
+                    </td>
+                </tr>
+                                        }
+            <!-- --------------دوشنبه---------------- -->
+            @{
+                var doshanbe_schedule = Model.Where(p => p.order_week == 3).ToList();
+            }
+            @if (doshanbe_schedule.Count > 0)
+            {
+
+
+                <tr class="barnameh-days">
+
+                    <td class="text-center td-barname-roz">دوشنبه</td>
+                    @{int counter_j = 0;
+
+                        bool endelement = false; }
+
+                    @for (int i = 0; i < count_ring; i++)
+                    {
+
+                        if (!endelement)
+                        {
+                            if (doshanbe_schedule.ElementAt(counter_j).order_ring == i + 1)
+                            {
+
+
+                                <td class="text-center td-barname-info">
+
+
+                                    @{
+                                        string coursename = "", teachername = "", coursetype_name = "";
+                                    }
+
+                                    @if (doshanbe_schedule.ElementAt(counter_j).Type_Ring == 0)
+                                    {
+                                        coursename = doshanbe_schedule.ElementAt(counter_j).Course_one_name;
+                                        teachername = doshanbe_schedule.ElementAt(counter_j).teacher_one_name;
+                                        coursetype_name = "";//---- زنگ کامل را نشان نمی دهیم
+                                    }
+                                    else if (doshanbe_schedule.ElementAt(counter_j).Type_Ring == 1)
+                                    {
+                                        coursename = doshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + doshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = doshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + doshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "چرخشی";
+                                    }
+                                    else if (doshanbe_schedule.ElementAt(counter_j).Type_Ring == 2)
+                                    {
+                                        coursename = doshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + doshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = doshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + doshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "تک زنگ";
+                                    }
+
+                                    <h4>@coursename</h4>
+                                    <h5>@teachername</h5>
+                                    @if (@coursetype_name != "")
+                                    {
+                                        <p>@coursetype_name</p>
+                                    }
+                                    @{
+                                        string startdate = ((DateTime)doshanbe_schedule.ElementAt(counter_j).start_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string enddate = ((DateTime)doshanbe_schedule.ElementAt(counter_j).end_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        startdate = startdate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                        enddate = enddate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                    }
+                                    <p>@startdate الی @enddate</p>
+                                    @if (doshanbe_schedule.Count == counter_j + 1)
+                                    {
+                                        endelement = true;
+                                    }
+                                    else
+                                    {
+                                        counter_j++;
+                                    }
+
+                                </td>
+
+                                        }
+
+
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+                    <td class="text-center td-barname-roz">
+                        <a class="btn btn-primary  btn-xs" href="@Url.Action("CreateSchedule", "Classes", new { shanbe_schedule.ElementAt(counter_j).order_week })" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;ویرایش
+                        </a>
+                        <a id="@shanbe_schedule.ElementAt(counter_j).order_week" class="btn btn-danger btn-xs delete-prompt" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;حذف
+                        </a>
+                    </td>
+                </tr>
+                                        }
+
+            <!-- -------------- سه شنبه---------------- -->
+            @{
+                var seshanbe_schedule = Model.Where(p => p.order_week == 4).ToList();
+            }
+            @if (seshanbe_schedule.Count > 0)
+            {
+
+
+                <tr class="barnameh-days">
+
+                    <td class="text-center td-barname-roz">سه شنبه</td>
+                    @{int counter_j = 0;
+
+                        bool endelement = false; }
+
+                    @for (int i = 0; i < count_ring; i++)
+                    {
+
+                        if (!endelement)
+                        {
+                            if (seshanbe_schedule.ElementAt(counter_j).order_ring == i + 1)
+                            {
+
+
+                                <td class="text-center td-barname-info">
+
+
+                                    @{
+                                        string coursename = "", teachername = "", coursetype_name = "";
+                                    }
+
+                                    @if (seshanbe_schedule.ElementAt(counter_j).Type_Ring == 0)
+                                    {
+                                        coursename = seshanbe_schedule.ElementAt(counter_j).Course_one_name;
+                                        teachername = seshanbe_schedule.ElementAt(counter_j).teacher_one_name;
+                                        coursetype_name = "";//---- زنگ کامل را نشان نمی دهیم
+                                    }
+                                    else if (seshanbe_schedule.ElementAt(counter_j).Type_Ring == 1)
+                                    {
+                                        coursename = seshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + seshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = seshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + seshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "چرخشی";
+                                    }
+                                    else if (seshanbe_schedule.ElementAt(counter_j).Type_Ring == 2)
+                                    {
+                                        coursename = seshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + seshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = seshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + seshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "تک زنگ";
+                                    }
+
+                                    <h4>@coursename</h4>
+                                    <h5>@teachername</h5>
+                                    @if (@coursetype_name != "")
+                                    {
+                                        <p>@coursetype_name</p>
+                                    }
+                                    @{
+                                        string startdate = ((DateTime)seshanbe_schedule.ElementAt(counter_j).start_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string enddate = ((DateTime)seshanbe_schedule.ElementAt(counter_j).end_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        startdate = startdate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                        enddate = enddate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                    }
+                                    <p>@startdate الی @enddate</p>
+                                    @if (seshanbe_schedule.Count == counter_j + 1)
+                                    {
+                                        endelement = true;
+                                    }
+                                    else
+                                    {
+                                        counter_j++;
+                                    }
+
+                                </td>
+
+                                        }
+
+
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+                    <td class="text-center td-barname-roz">
+                        <a class="btn btn-primary  btn-xs" href="@Url.Action("CreateSchedule", "Classes", new { shanbe_schedule.ElementAt(counter_j).order_week })" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;ویرایش
+                        </a>
+                        <a id="@shanbe_schedule.ElementAt(counter_j).order_week" class="btn btn-danger btn-xs delete-prompt" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;حذف
+                        </a>
+                    </td>
+                </tr>
+                                        }
+
+            <!-- -------------- چهارشنبه---------------- -->
+            @{
+                var charshanbe_schedule = Model.Where(p => p.order_week == 5).ToList();
+            }
+            @if (charshanbe_schedule.Count>0)
+            {
+
+
+                <tr class="barnameh-days">
+
+                    <td class="text-center td-barname-roz">چهارشنبه</td>
+                    @{int counter_j = 0;
+
+                        bool endelement = false; }
+
+                    @for (int i = 0; i < count_ring; i++)
+                    {
+
+                        if (!endelement)
+                        {
+                            if (charshanbe_schedule.ElementAt(counter_j).order_ring == i + 1)
+                            {
+
+
+                                <td class="text-center td-barname-info">
+
+
+                                    @{
+                                        string coursename = "", teachername = "", coursetype_name = "";
+                                    }
+
+                                    @if (charshanbe_schedule.ElementAt(counter_j).Type_Ring == 0)
+                                    {
+                                        coursename = charshanbe_schedule.ElementAt(counter_j).Course_one_name;
+                                        teachername = charshanbe_schedule.ElementAt(counter_j).teacher_one_name;
+                                        coursetype_name = "";//---- زنگ کامل را نشان نمی دهیم
+                                    }
+                                    else if (charshanbe_schedule.ElementAt(counter_j).Type_Ring == 1)
+                                    {
+                                        coursename = charshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + charshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = charshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + charshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "چرخشی";
+                                    }
+                                    else if (charshanbe_schedule.ElementAt(counter_j).Type_Ring == 2)
+                                    {
+                                        coursename = charshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + charshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = charshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + charshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "تک زنگ";
+                                    }
+
+                                    <h4>@coursename</h4>
+                                    <h5>@teachername</h5>
+                                    @if (@coursetype_name != "")
+                                    {
+                                        <p>@coursetype_name</p>
+                                    }
+                                    @{
+                                        string startdate = ((DateTime)charshanbe_schedule.ElementAt(counter_j).start_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string enddate = ((DateTime)charshanbe_schedule.ElementAt(counter_j).end_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        startdate = startdate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                        enddate = enddate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                    }
+                                    <p>@startdate الی @enddate</p>
+                                    @if (charshanbe_schedule.Count == counter_j + 1)
+                                    {
+                                        endelement = true;
+                                    }
+                                    else
+                                    {
+                                        counter_j++;
+                                    }
+
+                                </td>
+
+                                        }
+
+
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+                    <td class="text-center td-barname-roz">
+                        <a class="btn btn-primary  btn-xs" href="@Url.Action("CreateSchedule", "Classes", new { shanbe_schedule.ElementAt(counter_j).order_week })" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;ویرایش
+                        </a>
+                        <a id="@shanbe_schedule.ElementAt(counter_j).order_week" class="btn btn-danger btn-xs delete-prompt" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;حذف
+                        </a>
+                    </td>
+                </tr>
+                                        }
+
+            <!-- -------------- پنج شنبه---------------- -->
+            @{
+                var panshanbe_schedule = Model.Where(p => p.order_week == 6).ToList();
+            }
+            @if (panshanbe_schedule.Count > 0)
+            {
+
+
+                <tr class="barnameh-days">
+
+                    <td class="text-center td-barname-roz">پنج شنبه</td>
+                    @{int counter_j = 0;
+
+                        bool endelement = false; }
+
+                    @for (int i = 0; i < count_ring; i++)
+                    {
+
+                        if (!endelement)
+                        {
+                            if (panshanbe_schedule.ElementAt(counter_j).order_ring == i + 1)
+                            {
+
+
+                                <td class="text-center td-barname-info">
+
+
+                                    @{
+                                        string coursename = "", teachername = "", coursetype_name = "";
+                                    }
+
+                                    @if (panshanbe_schedule.ElementAt(counter_j).Type_Ring == 0)
+                                    {
+                                        coursename = panshanbe_schedule.ElementAt(counter_j).Course_one_name;
+                                        teachername = panshanbe_schedule.ElementAt(counter_j).teacher_one_name;
+                                        coursetype_name = "";//---- زنگ کامل را نشان نمی دهیم
+                                    }
+                                    else if (panshanbe_schedule.ElementAt(counter_j).Type_Ring == 1)
+                                    {
+                                        coursename = panshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + panshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = panshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + panshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "چرخشی";
+                                    }
+                                    else if (panshanbe_schedule.ElementAt(counter_j).Type_Ring == 2)
+                                    {
+                                        coursename = panshanbe_schedule.ElementAt(counter_j).Course_one_name + "/" + panshanbe_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = panshanbe_schedule.ElementAt(counter_j).teacher_one_name + "/" + panshanbe_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "تک زنگ";
+                                    }
+
+                                    <h4>@coursename</h4>
+                                    <h5>@teachername</h5>
+                                    @if (@coursetype_name != "")
+                                    {
+                                        <p>@coursetype_name</p>
+                                    }
+                                    @{
+                                        string startdate = ((DateTime)panshanbe_schedule.ElementAt(counter_j).start_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string enddate = ((DateTime)panshanbe_schedule.ElementAt(counter_j).end_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        startdate = startdate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                        enddate = enddate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                    }
+                                    <p>@startdate الی @enddate</p>
+                                    @if (panshanbe_schedule.Count == counter_j + 1)
+                                    {
+                                        endelement = true;
+                                    }
+                                    else
+                                    {
+                                        counter_j++;
+                                    }
+
+                                </td>
+
+                                        }
+
+
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+                    <td class="text-center td-barname-roz">
+                        <a class="btn btn-primary  btn-xs" href="@Url.Action("CreateSchedule", "Classes", new { shanbe_schedule.ElementAt(counter_j).order_week })" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;ویرایش
+                        </a>
+                        <a id="@shanbe_schedule.ElementAt(counter_j).order_week" class="btn btn-danger btn-xs delete-prompt" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;حذف
+                        </a>
+                    </td>
+                </tr>
+            }
+
+
+            <!-- -------------- جمعه---------------- -->
+            @{
+                var jome_schedule = Model.Where(p => p.order_week == 7).ToList();
+            }
+            @if (jome_schedule.Count > 0)
+            {
+
+
+                <tr class="barnameh-days">
+
+                    <td class="text-center td-barname-roz">جمعه</td>
+                    @{int counter_j = 0;
+
+                        bool endelement = false; }
+
+                    @for (int i = 0; i < count_ring; i++)
+                    {
+
+                        if (!endelement)
+                        {
+                            if (jome_schedule.ElementAt(counter_j).order_ring == i + 1)
+                            {
+
+
+                                <td class="text-center td-barname-info">
+
+
+                                    @{
+                                        string coursename = "", teachername = "", coursetype_name = "";
+                                    }
+
+                                    @if (jome_schedule.ElementAt(counter_j).Type_Ring == 0)
+                                    {
+                                        coursename = jome_schedule.ElementAt(counter_j).Course_one_name;
+                                        teachername = jome_schedule.ElementAt(counter_j).teacher_one_name;
+                                        coursetype_name = "";//---- زنگ کامل را نشان نمی دهیم
+                                    }
+                                    else if (jome_schedule.ElementAt(counter_j).Type_Ring == 1)
+                                    {
+                                        coursename = jome_schedule.ElementAt(counter_j).Course_one_name + "/" + jome_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = jome_schedule.ElementAt(counter_j).teacher_one_name + "/" + jome_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "چرخشی";
+                                    }
+                                    else if (jome_schedule.ElementAt(counter_j).Type_Ring == 2)
+                                    {
+                                        coursename = jome_schedule.ElementAt(counter_j).Course_one_name + "/" + jome_schedule.ElementAt(counter_j).Course_two_name;
+                                        teachername = jome_schedule.ElementAt(counter_j).teacher_one_name + "/" + jome_schedule.ElementAt(counter_j).teacher_two_name;
+                                        coursetype_name = "تک زنگ";
+                                    }
+
+                                    <h4>@coursename</h4>
+                                    <h5>@teachername</h5>
+                                    @if (@coursetype_name != "")
+                                    {
+                                        <p>@coursetype_name</p>
+                                    }
+                                    @{
+                                        string startdate = ((DateTime)jome_schedule.ElementAt(counter_j).start_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string enddate = ((DateTime)jome_schedule.ElementAt(counter_j).end_time).ToString("hh: mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        startdate = startdate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                        enddate = enddate.Replace("AM", "ق ظ").Replace("PM", "ب ظ");
+                                    }
+                                    <p>@startdate الی @enddate</p>
+                                    @if (jome_schedule.Count == counter_j + 1)
+                                    {
+                                        endelement = true;
+                                    }
+                                    else
+                                    {
+                                        counter_j++;
+                                    }
+
+                                </td>
+
+                                        }
+
+
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-center td-barname-info">
+                                                <!-- خالی -->
+                                            </td>
+                                            }
+
+                                        }
+                    <td class="text-center td-barname-roz">
+                        <a class="btn btn-primary  btn-xs" href="@Url.Action("CreateSchedule", "Classes", new { shanbe_schedule.ElementAt(counter_j).order_week })" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;ویرایش
+                        </a>
+                        <a id="@shanbe_schedule.ElementAt(counter_j).order_week" class="btn btn-danger btn-xs delete-prompt" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;حذف
+                        </a>
+                    </td>
+                </tr>
+                                        }
+
+
+        </tbody>
+    </table>
+
+
+<!-- End Modal For Delete Student -->
+<!-- Barname Haftegi -->

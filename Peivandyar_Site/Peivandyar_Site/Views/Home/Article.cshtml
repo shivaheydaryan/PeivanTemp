@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Article";
+    Layout = "~/Views/Shared/Layout/_Site.cshtml";
+}
+
+<!-- Header -->
+<header class="masthead article">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="head-title text-center pt-5 wow fadeIn fast">
+                    <h2>مقاله ها</h2>
+                    <p>جدیدترین روش تربیت فرزند و علاقه مند کردن فرزندان به درس و کتاب خوانی را میتوانید از اینجا دریافت کنید.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Search Option -->
+<div id="about">
+    <div class="container">
+        <div class="main">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title text-right mb-1 wow fadeInUp fast">
+                        <h4>جستجوی مقاله...</h4>
+                        <hr>
+                        <p>برای جستجوی مقاله می توانید موضوع ، نویسنده و یا عبارت موردنظر را وارد کنید.</p>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div class="input-group mb-1 wow fadeInUp fast">
+                        <input id="txt_search" type="text" class="form-control" placeholder="..." aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-secondary" type="button" id="btn_search"><i class="fas fa-search"></i>&nbsp;جستجو</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Article Card -->
+
+<div id="article-card" class="pt-3 pb-4">
+    
+</div>
+
+@section Scripts{
+    <script>
+        var search_text = "";
+        $(document).ready(function (ev) {
+            
+            $(".wrapper").removeClass("d-none");
+           
+            currentpage = 1;
+            LoadArticleList(search_text, currentpage);
+
+            
+        });
+
+        $(document).on('click', '.adwn', 'click', function () {
+            var iddwn=($(this).data().bind);
+            $.ajax
+            ({
+                url: "/Home/ArticleDownload",
+                data: { id: iddwn },
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                cache: !0,
+                datatype: "html",
+                success: function (t) {
+                    
+
+                },
+                error: function () {
+                    
+                }
+            })
+
+        });
+
+        $(document).on('click', '#btn_search', 'click', function () {
+        
+            search_text = $("#txt_search").val();
+            $(".wrapper").removeClass("d-none");
+            currentpage = 1;
+            LoadArticleList(search_text, currentpage);
+        });
+
+        $(document).on('click', '.page-link', 'click', function () {
+            $(".wrapper").removeClass("d-none");
+            var str = $(this).prop('title');
+            currentpage = str;
+            LoadArticleList(search_text, currentpage);
+        });
+
+        function LoadArticleList(search_text, page) {
+
+
+            $.ajax
+            ({
+                url: "/Home/ArticleList",
+                data: {  search_text: search_text, page: page },
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                cache: !0,
+                datatype: "html",
+                success: function (t) {
+                    $("#article-card").html(t)
+
+                },
+                error: function () {
+                    $("#article-card").html("سرور در حال حاضر قادر به پاسخگویی نیست .")
+                }
+            })
+        }
+
+        
+    </script>
+}
+
+

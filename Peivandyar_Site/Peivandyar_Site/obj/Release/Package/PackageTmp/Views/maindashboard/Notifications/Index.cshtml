@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout/_SiteManager.cshtml";
+}
+
+<!--Create Page Here and Footer-->
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 valign-top display-table-row">
+
+    <div id="content">
+        <header>
+            <h4 class="">اعلان ها</h4>
+            <hr class="line-under-title" />
+        </header>
+
+        <!--content-inner-->
+        <div class="content-inner">
+
+            <!--Tab Body Tag-->
+            <div id="tabs">
+
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active">
+                        <a id="a-notific-tab-inbox" data-toggle="tab" href="#notification-tab">
+                            <i class="fas fa-bell"></i>
+                            &nbsp;اعلان های دریافتی
+                            <span class="label label-success tab-noti-msg">@ViewBag.Inbox_count</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="a-notific-tab-save" data-toggle="tab" href="#notification-star-tab">
+                            <i class="fas fa-star"></i>
+                            &nbsp;اعلان های ذخیره شده
+                            <span class="label label-success tab-noti-msg-saved">@ViewBag.Save_count</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <!--Tab Notification-->
+                    <div id="notification-tab" class="tab-pane fade in active">
+                        <!--From Partial-->
+                    </div>
+                    <!--End Tab Notification-->
+                    <!--Tab Star Notification-->
+                    <div id="notification-star-tab" class="tab-pane fade">
+                        <!--From Partial-->
+
+                    </div>
+                    <!--End Tab Star Notification-->
+
+                </div>
+
+            </div><!--End tabs-->
+        </div><!--End Content-inner-->
+    </div> <!--End Content-->
+    <!--Footer
+    <div class="row">
+        <footer id="admin-footer" class="clearfix">
+            <div class="pull-right"><b>کپی رایت</b>&copy;۲۰۱۸</div>
+            <div class="pull-right">پیوندیار سیستم</div>
+        </footer>
+    </div>-->
+
+</div><!--End Page Body-->
+@section Scripts{
+    <script>
+    var currentpage = "1";
+    $(document).ready(function (ev) {
+        currentpage = 1;
+        LoadInbox(currentpage);
+        $('#a-notific-tab-inbox').click(function () {
+            LoadInbox(currentpage);
+        });
+        
+        $('#a-notific-tab-save').click(function () {
+            LoadSave(currentpage);
+        });
+        
+    });
+
+    function LoadInbox(page) {
+        $.ajax
+        ({
+            url: "/Notifications/Inbox_Notic",
+            data: {page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#notification-tab").html(result);
+
+            },
+            error: function () {
+                $("#notification-tab").html("Post Not Found")
+            }
+        })
+    }
+    
+    function LoadSave(page) {
+        $.ajax
+        ({
+            url: "/Notifications/Save_Notic",
+            data: { page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#notification-star-tab").html(result);
+
+            },
+            error: function () {
+                $("#notification-star-tab").html("Post Not Found")
+            }
+        })
+    }
+    
+    </script>
+}

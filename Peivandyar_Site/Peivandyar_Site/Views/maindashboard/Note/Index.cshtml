@@ -1,0 +1,151 @@
+﻿@model PagedList.IPagedList<Models.Note>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout/_SiteManager.cshtml";
+}
+<!--Create Page Here and Footer-->
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 display-table-row valign-top">
+
+    <div id="content">
+        <header>
+            <h4 class="">یادداشت</h4>
+            <hr class="line-under-title" />
+        </header>
+
+        <!--Top Note -->
+        <div class="content-inner">
+            <div class="row">
+
+                <div id="note-editor">
+                    <div class="class-action-btn">
+                        <a class="btn btn-md btn-default" href="#" data-toggle="modal" data-target="#modal-add-note" role="button">
+                            <span class="fas fa-plus-circle" aria-hidden="true"></span>&nbsp;&nbsp;افزودن یادداشت
+                        </a>
+                    </div>
+                </div>
+
+            </div><!--End Row-->
+        </div><!--End Content-inner-->
+
+        <hr class="line-under-title" />
+
+        <h4>یادداشت های ذخیره شده : </h4>
+        <div class="saved-msg">
+        @foreach (var item in Model)
+        {
+            <div class="card-saved-msg color-msg-blue">
+                <div class="card-saved-msg-header">
+                    <span class="text-left">@item.Date</span>
+                    <a class="btn btn-delete btn-xs pull-left" href="#" data-toggle="modal" data-target="#modal-delete" role="button">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                </div>
+                <div class="card-saved-msg-body">
+                    <a href="#">
+                        <h4>@item.Title</h4>
+                        <p>@item.Msg_Content</p>
+                    </a>
+                </div>
+            </div>
+        }
+        </div> <!--end-saved-msg-->
+
+        <hr class="line-under-title" />
+        <!--Pagination-->
+        <div class="row class-paging">
+            <div class="col-md-12 text-center">
+                <nav>
+ 
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "Note", new { page }), new PagedListRenderOptions { FunctionToTransformEachPageLink = (liTag, aTag) => { aTag.Attributes.Add("data-page-no", aTag.InnerHtml); liTag.InnerHtml = aTag.ToString(); return liTag; } })
+                    <ul class="pagination d-flex justify-content-center">
+                        <li><a href="#">&raquo;</a></li>
+                        <li class="active"><a href="#">۱</a></li>
+                        <li><a href="#">۲</a></li>
+                        <li><a href="#">۳</a></li>
+                        <li><a href="#">۴</a></li>
+                        <li><a href="#">۵</a></li>
+                        <li><a href="#">&laquo;</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div> <!--End Pagination-->
+
+    </div>
+
+    <!-- Modal For Delete Note -->
+    <div class="modal fade" id="modal-delete" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <!--
+                 <div class="modal-header">
+                 </div> -->
+                <div class="modal-body text-center">
+                    <h4>یادداشت حذف شود؟</h4>
+                </div>
+                <div class="modal-footer text-center">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">خیر</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger" data-send="modal">بله</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal For Add Note -->
+    <div class="modal fade" id="modal-add-note" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>دفترچه یادداشت</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="note-body">
+                        <div class="dropdown body-dropdown pull-left">
+                            <a class="btn btn-default dropdown-toggle" id="name-dars" data-toggle="dropdown" href="#">
+                                انتخاب رنگ یادداشت :
+                                <span class="fas fa-circle purple"></span>
+                            </a>
+                            <ul class="dropdown-menu text-right">
+                                <li><a href="#"><span class="fas fa-circle green"></span>&nbsp;&nbsp;سبز</a></li>
+                                <li><a href="#"><span class="fas fa-circle yellow"></span>&nbsp;&nbsp;زرد</a></li>
+                                <li><a href="#"><span class="fas fa-circle pink"></span>&nbsp;&nbsp;صورتی</a></li>
+                                <li><a href="#"><i class="fa fa-check pull-left"></i><span class="fas fa-circle purple"></span>&nbsp;&nbsp;بنفش</a></li>
+                                <li><a href="#"><span class="fas fa-circle blue"></span>&nbsp;&nbsp;آبی</a></li>
+                            </ul>
+                        </div>
+
+                        <input type="text" placeholder="موضوع" class="note-subject">
+                        <hr class="line-under-title" />
+                        <textarea class="form-control note-textarea" placeholder="متن خود را وارد کنید"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-btn">
+                        <button type="button" class="btn btn-success" data-send="modal">
+                            <span class="fas fa-check-circle"></span>&nbsp;ثبت یادداشت
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="fas fa-times-circle"></span>&nbsp;انصراف
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Footer-->
+    <!--Footer
+    <footer id="admin-footer" class="hidden-xs">
+        <div class="row pull-right">
+            <p>پیوندیار سیستم</p>
+        </div>
+    </footer> -->
+
+</div>
+<!--End Page Body-->

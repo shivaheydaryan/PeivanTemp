@@ -1,0 +1,118 @@
+﻿<!--Side Menu-->
+@{ 
+    ViewModel.Institute_Info_Session_VM myinstitute = new ViewModel.Institute_Info_Session_VM();
+    if (Session["Institute_info"]!=null)
+    {
+        myinstitute = (ViewModel.Institute_Info_Session_VM)Session["Institute_info"];
+    }
+}
+<div class="col-md-2 col-sm-2 col-xs-2 hidden-xs display-table-cell valign-top" id="side-menu">
+    <div class="link-top">
+        <span class="hidden-xs"></span>
+    </div>
+    <ul>
+        <li class="link active">
+            <a href="main-dashboard.html">
+                <span class="fas fa-home"></span>
+                <span class="hidden-xs">داشبورد مدیریت</span>
+                <div class="side-loader"></div>
+            </a>
+        </li>
+
+        <li  class="link">
+            <a     href="#collapse-classes" data-toggle="collapse" aria-controls="collapse-classes" aria-expanded="true">
+                <span class="fas fa-list-alt" aria-hidden="true"></span>
+                <span class="hidden-xs">آموزشگاه</span>
+                <span id="header_classes" aria-hidden="true"><i class="fas fa-spinner fa-pulse"></i></span>
+            </a>
+            <ul id="collapse-classes"  class="collapseable collapse in" >
+                <!-- Load Institute List -->
+            </ul>
+        </li>
+
+        <li class="link">
+            <a href="@Url.Action("Student_list","Student")">
+                <span class="fa fa-child" aria-hidden="true"></span>
+                <span class="hidden-xs">لیست دانش آموز ها</span>
+            </a>
+        </li>
+
+        <li class="link">
+            <a href="@Url.Action("Teacher_list","Teacher")">
+                <span class="fa fa-users" aria-hidden="true"></span>
+                <span class="hidden-xs">لیست کارمند ها</span>
+            </a>
+        </li>
+
+        <li class="link">
+            <a href="@Url.Action("Index","Notifications")">
+                <span class="fa fa-bell"></span>
+                <span class="hidden-xs">اعلان ها</span>
+                <span class="label label-success pull-left hidden-xs right-noti-msg">۱۸</span>
+            </a>
+        </li>
+
+        <li class="link">
+            <a href="@Url.Action("Index","Messages")">
+                <span class="fa fa-envelope"></span>
+                <span class="hidden-xs">پیام ها</span>
+                <span class="label label-success pull-left hidden-xs right-noti-msg">۲۰</span>
+            </a>
+        </li>
+
+        <li class="link">
+            <a href="@Url.Action("Index","Note")">
+                <span class="fa fa-file-text"></span>
+                <span class="hidden-xs">یادداشت ها</span>
+                <span class="label label-success pull-left hidden-xs right-noti-msg">۶۹</span>
+            </a>
+        </li>
+
+        <li class="link settings-btn">
+            <a href="setting.html">
+                <span class="fa fa-cog"></span>
+                <span class="hidden-xs">تنظیمات</span>
+            </a>
+        </li>
+
+
+    </ul>
+</div>
+<script src="~/Scripts/jquery.js"></script>
+<script>
+    $(document).ready(function (ev) {
+
+        loadinstitutelist();
+    });
+
+
+
+    //  Load Notification
+    function loadinstitutelist() {
+
+        $.ajax
+            ({
+                url: "/Dashboard/InstituteList",
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                cache: !0,
+                datatype: 'html',
+                success: function (data) {
+
+                    if (!jQuery.isEmptyObject(data)) {
+                        $("#collapse-classes").append(data);
+                        $("#header_classes").addClass("hidden")
+                    }
+                    else {
+                        $("#header_classes").addClass("hidden")
+                    }
+
+
+                },
+                error: function () {
+                    $("#header_classes").addClass("hidden")
+                }
+            })
+    }
+
+</script>

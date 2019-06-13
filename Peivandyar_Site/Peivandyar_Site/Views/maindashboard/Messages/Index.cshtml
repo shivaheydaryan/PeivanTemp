@@ -1,0 +1,257 @@
+﻿@using HelperExtensionNameSpace
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout/_SiteManager.cshtml";
+}
+    
+
+
+<!--Create Page Here and Footer-->
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 valign-top display-table-row">
+
+    <div id="content">
+        <header>
+            <h4 class="">پیام ها</h4>
+            <hr class="line-under-title" />
+        </header>
+
+        <!--content-inner-->
+        <div class="content-inner">
+
+            <div class="row-fluid">
+                <div class="class-action-btn">
+                    <a class="btn btn-md btn-default" href="#" data-toggle="modal" data-target="#mymodal" role="button">
+                        <span class="fas fa-pencil-alt" aria-hidden="true"></span>&nbsp;&nbsp;ارسال پیام جدید
+                    </a>
+                </div>
+            </div><!--End Add Student-->
+        
+            <hr class="line-under-title" />
+            <!--MailBox Body Tag-->
+            <div id="tabs">
+
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active">
+                        @*@Ajax.RawActionLink(
+                       "<i class=\"fas fa - inbox\"></i>&nbsp;پیام های دریافتی<span class=\"label label-success msg-inbox-color\">۲۷</span>",
+                       "Inbox_MSG",
+                       "Messages",
+                       null,
+                       new AjaxOptions
+                       {
+                           UpdateTargetId = "Inbox_div",
+                           InsertionMode = InsertionMode.Replace,
+                           HttpMethod = "Get"
+                       },
+                       new { onclick="alert()"})*@
+
+                        
+                        <a id="a-messgae-tab-inbox" data-toggle="tab" href="#messgae-tab-inbox">
+                            <i class="fas fa-inbox"></i>
+                            &nbsp;پیام های دریافتی
+                            @if (ViewBag.Inbox_count > 0)
+                            {
+                                <span class="label label-success msg-inbox-color">@ViewBag.Inbox_count</span>
+                            }
+
+                            
+                        </a>
+                    </li>
+                    <li>
+                        
+                        <a id="a-messgae-tab-send" data-toggle="tab" href="#messgae-tab-send" >
+                            <i class="fas fa-paper-plane"></i>
+                            &nbsp;پیام های ارسالی
+@if (ViewBag.Send_count > 0)
+{
+                            <span class="label label-success msg-outbox-color">@ViewBag.Send_count</span>
+}
+                        </a>
+                    </li>
+                    <li>
+                        <a id="a-messgae-tab-save" data-toggle="tab" href="#messgae-tab-marked">
+                            <i class="fas fa-star"></i>
+                            &nbsp;پیام های ذخیره شده
+@if (ViewBag.Save_count > 0)
+{
+                            <span class="label label-success msg-marked-color">@ViewBag.Save_count </span>
+}
+                        </a>
+                    </li>
+                    <li>
+                        <a id="a-messgae-tab-delete" data-toggle="tab" href="#messgae-tab-trash">
+                            <i class="fas fa-trash-alt"></i>
+                            &nbsp;پیام های دورریخته
+@if (ViewBag.Delete_count > 0)
+{
+                            <span class="label label-success msg-trash-color">@ViewBag.Delete_count </span>
+}
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content">
+
+                    <!--Tab messgae-tab-inbox-->
+                    <div id="messgae-tab-inbox" class="tab-pane fade in active">
+
+                        <!--
+                         <div class="box-header with-border">
+                            <div class="box-search pull-left">
+                               <div class="has-feedback">
+                                   <input class="form-control input-sm" placeholder="جستجو در ایمیل ها ..." type="text" />
+                                   <span class="fa fa-search form-control-feedback"></span>
+                               </div>
+                            </div>
+                         </div> -->
+
+                        <!--Box-Body-->
+                        <div id="Inbox_div" class="box-body no-padding">
+                            
+
+
+                        </div><!--Box-Body-->
+
+                    </div>
+                    <!--End messgae-tab-inbox-->
+                    <!--Tab messgae-tab-send-->
+                    <div id="messgae-tab-send" class="tab-pane fade">
+
+                        <div id="Send_div" class="box-body no-padding">
+                            
+
+                        </div><!--Box-Body-->
+
+                    </div>
+                    <!--End messgae-tab-send-->
+                    <!--Tab messgae-tab-marked-->
+                    <div id="messgae-tab-marked" class="tab-pane fade">
+                        <div id="Save_div" class="box-body no-padding">
+                            
+
+
+                        </div><!--Box-Body-->
+
+                    </div>
+                    <!--End messgae-tab-marked-->
+                    <!--Tab messgae-tab-trash-->
+                    <div id="messgae-tab-trash" class="tab-pane fade">
+                        <div id="Delete_div" class="box-body no-padding">
+                            
+
+                        </div><!--Box-Body-->
+
+                    </div>
+                    <!--End messgae-tab-trash-->
+
+                </div><!--End tab-content-->
+
+            </div><!--End MailBox Body Tag-->
+
+        </div><!--End Content-inner-->
+    </div> <!--End Content-->
+    <!--Footer
+    <div class="row">
+        <footer id="admin-footer" class="clearfix">
+            <div class="pull-right"><b>کپی رایت</b>&copy;۲۰۱۸</div>
+            <div class="pull-right">پیوندیار سیستم</div>
+        </footer>
+    </div>-->
+
+</div><!--End Page Body-->
+@section Scripts{
+<script>
+    var currentpage = "1";
+    $(document).ready(function (ev) {
+        currentpage = 1;
+        LoadInbox(currentpage);
+        $('#a-messgae-tab-inbox').click(function () {
+            LoadInbox(currentpage);
+        });
+        $('#a-messgae-tab-send').click(function () {
+            LoadSend(currentpage);
+        });
+        $('#a-messgae-tab-save').click(function () {
+            LoadSave(currentpage);
+        });
+        $('#a-messgae-tab-delete').click(function () {
+            LoadDelete(currentpage);
+        });
+        
+    });
+
+    function LoadInbox(page) {
+        $.ajax
+        ({
+            url: "/Message/Inbox_MSG",
+            data: {page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#Inbox_div").html(result);
+
+            },
+            error: function () {
+                $("#Inbox_div").html("Post Not Found")
+            }
+        })
+    }
+    function LoadSend(page) {
+        $.ajax
+        ({
+            url: "/Message/Send_MSG",
+            data: { page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#Send_div").html(result);
+
+            },
+            error: function () {
+                $("#Send_div").html("Post Not Found")
+            }
+        })
+    }
+    function LoadSave(page) {
+        $.ajax
+        ({
+            url: "/Message/Save_MSG",
+            data: { page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#Save_div").html(result);
+
+            },
+            error: function () {
+                $("#Save_div").html("Post Not Found")
+            }
+        })
+    }
+    function LoadDelete(page) {
+        $.ajax
+        ({
+            url: "/Message/Delete_MSG",
+            data: { page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#Delete_div").html(result);
+
+            },
+            error: function () {
+                $("#Delete_div").html("Post Not Found")
+            }
+        })
+    }
+</script>
+}

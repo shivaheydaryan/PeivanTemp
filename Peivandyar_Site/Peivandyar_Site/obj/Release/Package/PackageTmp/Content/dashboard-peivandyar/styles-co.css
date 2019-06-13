@@ -1,0 +1,610 @@
+/*------------------- Base Style -------------------*/
+
+/*-------- Input Font Style --------*/
+
+@import url(../fontiran.css);
+body {
+	font-family: IRANSans !important;
+	font-weight: 300;
+	direction: rtl;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6,input, textarea {
+	font-family: IRANSans !important;
+}
+h1 {
+	font-weight: bold;
+}
+.wrapper {
+	max-width: 900px;
+	margin: 0 auto;
+}
+.ltr {
+	direction: ltr;
+}
+.text-right {
+	text-align: right;
+}
+.text-center {
+	text-align: center;
+}
+.text-left {
+	text-align: left;
+}
+.text-small {
+	font-size: 0.8em;
+}
+.text-xsmall {
+	font-size: 0.6em;
+}
+.text-large {
+	font-size: 1.2em;
+}
+.text-xlarge {
+	font-size: 1.4em;
+}
+.text-underline {
+	text-decoration:underline;
+}
+.text-ultralight {
+	font-weight: 200;
+}
+.text-light {
+	font-weight: 300;
+}
+.text-regular {
+	font-weight: normal;
+}
+.text-medium {
+	font-weight: 500;
+}
+.text-bold {
+	font-weight: bold;
+}
+blockquote {
+	font-weight: 500;
+	padding: 10px;
+	border: 1px dashed #666666;
+}
+.mainbox {
+	width: 100%;
+	background-color: #EFEFEF;
+	display: table;
+	margin-bottom: 30px;
+	border-right: 8px solid #FFFF33;
+}
+.mainboxnegativ {
+	width: 100%;
+	background-color: #000000;
+	display: table;
+	margin-bottom: 30px;
+	border-right: 8px solid #FFFF33;
+	color: #F9F9F9;
+}
+.mainbox2 {
+	font-size: 1em;
+	width: 90%;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.mainbox2negativ {
+	font-size: 1em;
+	color: #F9F9F9;
+	background-color: #000000;
+	padding-right: 20px;
+}
+
+.farsiparagraph {
+	font-size: 1em;
+	width: 47%;
+	float:right;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+}
+.englishparagraph {
+	font-size: 1em;
+	width: 47%;
+	float: left;
+	direction:ltr;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.rightbox {
+	width: 60%;
+	padding-right: 20px;
+	padding-left: 5px;
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 0px;
+	min-width: 0px;
+	background-color: #F7F7F7;
+}
+.titelbox {
+	width: 60%;
+	padding-right: 25px;
+	padding-left: 0px;
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 0px;
+	min-width: 0px;
+	background-color: #F2F2F2;
+	color: #4B4B4B;
+}
+.lefttbox {
+	padding-right: 20px;
+	padding-left: 4px;
+	float: right;
+	margin-bottom: 10px;
+	min-width: 0px;
+}
+.alphabet {
+	width: 35%;
+	float: left;
+	font-size: 21em;
+	text-align: center;
+	font-weight: 500;
+	color: #999999;
+}
+.alphabet2 {
+	width: 35%;
+	float: left;
+	direction: ltr;
+	font-size: 1.6em;
+	text-align: left;
+	font-weight: 500;
+	color: #333333;
+	margin-top: 100px;
+}
+.footer {
+	font-weight: 300;
+	font-size: 0.7em;
+	text-align: center;
+	direction: ltr;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+a {
+    text-decoration: none;
+}
+::selection{
+    background-color: #2B3B4B;
+    color: #fff;
+}
+::-moz-selection{
+    background-color: #2B3B4B;
+    color: #fff;
+}
+::-o-selection{
+    background-color: #2B3B4B;
+    color: #fff;
+}
+::-webkit-selection{
+    background-color: #2B3B4B;
+    color: #fff;
+}
+::-ms-selection{
+    background-color: #2B3B4B;
+    color: #fff;
+}
+/*---- End Import Persian Font ----*/
+body{
+    background: #f2f2f2;
+}
+
+
+/*------------ Custome Toggle Button ---------------*/
+.switch input { 
+    display:none;
+}
+.switch {
+    display:inline-block;
+    width: 60px;
+    height: 22px;
+    margin: 0 5px;
+    transform: translateY(50%);
+    position: relative;
+}
+.slider {
+    position: absolute;
+    top: -5px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius:30px;
+    box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+    cursor: pointer;
+    border: 4px solid transparent;
+    overflow: hidden;
+    transition:.4s;
+}
+.slider:before {
+    position:absolute;
+    content:"";
+    width:100%;
+    height:100%;
+    background:#777;
+    border-radius:60px;
+    transform:translateX(-30px);
+    transition:.4s;
+}
+
+.toggle-input:checked + .slider:before {
+    transform:translateX(30px);
+    background:#449df4;
+}
+.toggle-input:checked + .slider {
+    box-shadow:0 0 0 2px #449df4,0 0 2px #449df4;
+}
+
+/*------------ Navbar ---------------*/
+.navbar span{
+    font-size: 13px;
+    font-weight: 400;
+}
+.logo{
+    /*border-left: 1px solid #3F474E;*/
+    padding: 0 20px;
+    margin-left: 10px;
+}
+.column-2{
+    width: 450px;
+}
+.label-success{
+    background-color: #2EA893;
+    padding: 0px 8px;
+    border-radius: 25px;
+    font-weight: 500;
+}
+.label-primary{
+    background-color: #1483F2;
+    padding: 0px 8px;
+    border-radius: 25px;
+    font-weight: 400;
+    position: absolute;
+    left: 10px;
+}
+#mynavbar{
+    padding: 0;
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
+}
+#mynavbar .navbar-nav{
+    padding: 0;
+}
+#mynavbar .dropdown{
+    text-align: right;
+}
+#mynavbar .dropdown .arrow-down{
+    position: relative;
+    top: 2px;
+    padding: 0 5px;
+}
+#mynavbar .dropdown .nav-link{
+    border-left: 1px solid #3F474E;
+    font-size: 14px;
+    padding: 15px 10px;
+    color: #fff;
+}
+#mynavbar .dropdown .nav-link:hover{
+    background-color: #2A2C32;
+}
+#mynavbar .dropdown > .active{
+    color: #fff;
+    background-color: #1E2024;   
+}
+#mynavbar .dropdown ul .dropdown-item{
+    padding: 5px 5px;
+    font-size: 13px;
+    margin-left: 50px;
+    color: #fff;
+}
+#mynavbar .dropdown ul .dropdown-item:hover{
+    background-color: #449DF4;
+    border-radius: 3px;
+}
+#mynavbar .dropdown .dropdown-menu{
+    background-color: #343A40;
+    text-align: right;
+    border: none;
+    border-radius: 3px;
+    padding: 5px;
+}
+#mynavbar .dropdown .col-md-6{
+    padding: 5px;
+    width: 250px;
+}
+#mynavbar .dropdown .dropdown-menu .row{
+    padding: 0px 10px;
+}
+#mynavbar .dropdown .dropdown-menu .multi-column h6{
+    color: #3FCAB2;
+    font-size: 14px;
+    margin-right: 5px;
+}
+#mynavbar .dropdown .dropdown-menu .multi-column li{
+    margin-right: 7px;
+}
+#mynavbar .dropdown .dropdown-menu .multi-column hr{
+    border-color: #4A545C;
+}
+
+@media(max-width:998px){
+    #mynavbar .dropdown .nav-link{
+        text-align: center;
+    }
+}
+@media(max-width:991px){
+    #mynavbar{
+        padding: 5px;
+    }
+    #mynavbar .navbar-toggler{
+        margin-left: 15px;
+        border: none;
+    }
+    #mynavbar .dropdown .nav-link{
+        border: none;
+    }
+}
+@media(max-width:766px){
+    #mynavbar .dropdown .nav-link{
+        text-align: right;
+    }
+    #mynavbar .dropdown .dropdown-menu{
+        background-color: #1E2024;
+    }
+}
+.animate{
+    -webkit-transition: all .2s ease-in-out;
+       -moz-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+        -ms-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+
+.btn-secondary{
+    background-color: #343a40;
+    border: none;
+    border-radius: 50px;
+}
+/*--------------------------------------------------------------------------
+-------- List Institute
+---------------------------------------------------------------------------*/
+#content .card{
+    text-align: right;
+    color: #343a40;
+}
+#content h5{
+    color: #343a40;
+}
+#content .card .btn-add{
+    margin-left: 30px;
+}
+#content .card .btn-add i{
+    position: relative;
+    top: 3px;
+}
+#content .card .input-group .input-search{
+    border-radius: 0 30px 30px 0;
+    padding: 0 20px;
+}
+#content .card .input-group .input-search:focus{
+    border: 1px solid #343a40;
+    box-shadow: none;
+}
+#content .card .input-group .btn-search{
+    border-radius: 30px 0 0 30px;
+}
+#content .card-main{
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+#content .card-main a{
+    text-decoration: none;
+}
+
+#content .card-main .card{
+    border: 0;
+    border-radius: 3px;
+    background-color: #fff;
+    /*height: 340px;*/
+    margin-top: 20px;
+}
+#content .card-main .card:hover{
+    box-shadow: 0 0px 10px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+#content .card-main .card hr{
+    width: 25%;
+    border: 1px solid #449DF4;
+    margin-right: 0;
+    margin-top: 0;
+    transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s; 
+}
+#content .card-main .card:hover hr{
+    width: 40%;
+    transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s; 
+}
+#content .card-main .card img{
+    width: 100%;
+    padding: 0px;
+    border-radius: 3px 3px 0 0;
+}
+#content .card-main .card .card-body{
+    padding: 14px 12px;
+}
+#content .card-main .card .card-body .school-name{
+    color: #363636;
+    line-height: 28px;
+}
+#content .card-main .card:hover .card-footer i{
+    right: 0;
+    opacity: 1;
+    transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s; 
+}
+#content .card-main .card .card-footer{
+    border: 0;
+    padding: 15px;
+    background-color: #fff;
+}
+#content .card-main .card:hover .card-footer a{
+    color: #449DF4;
+}
+#content .card-main .card .card-footer a{
+    color: #363636;
+    font-weight: 500;
+    font-size: 13px;
+}
+#content .card-main .card .card-footer i{
+    position: relative;
+    color: #449DF4;
+    opacity: 0;
+    right: 20px;
+    top: 2px;
+    transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s; 
+}
+#content .card-main .card .address{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 28px;
+    color: #505050;
+}
+#content .card-main .card .address i{
+    margin-left: 5px;
+}
+#content .card-main .card .actived{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #449DF4;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 11px;
+    padding: 2px 10px;
+}
+#content .card-main .card .unactived{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #707070;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 11px;
+    padding: 2px 10px;
+}
+#content .card-main .card .gener{
+    position: absolute;
+    top: 30px;
+    right: 5px;
+    background-color: #449DF4;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 11px;
+    padding: 2px 10px;
+}
+#content .card-main .card .kind{
+    position: absolute;
+    top: 55px;
+    right: 5px;
+    background-color: #ff4757;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 11px;
+    padding: 2px 10px;
+}
+
+/*--------------------------------------------------------------------------
+-------- Add Institute
+---------------------------------------------------------------------------*/
+#content .card .back-btn{
+    position: absolute;
+    left: 20px;
+    top: 8px;
+}
+#content .card .back-btn i{
+    position: relative;
+    top: 2px;
+}
+#content .custom-select{
+    padding-right: 10px;
+    font-size: 14px;
+}
+#content input{
+    font-size: 14px;
+}
+#content label{
+    font-size: 16px;
+    font-weight: 500;
+    color: #363636;
+}
+.title-file-uploader{
+	margin-top: 20px;
+}
+
+#content .register-group button{
+    margin: 0 10px;
+    border-radius: 30px;
+    padding: 8px 20px;
+}
+#content .register-group button i{
+    margin-left: 10px;
+    position: relative;
+    top: 2px;
+}
+
+/*--------------------------------------------------------------------------
+-------- List Institute
+---------------------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------------------
+-------- List Institute
+---------------------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------------------
+-------- List Institute
+---------------------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------------------
+-------- List Institute
+---------------------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------------------
+-------- List Institute
+---------------------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------------------
+-------- List Institute
+---------------------------------------------------------------------------*/
+

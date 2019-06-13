@@ -1,0 +1,56 @@
+﻿@model PagedList.IPagedList<ViewModel.MessageListVM>
+    @{ 
+        App_Start.Date_Shamsi_Miladi DateConverter = new App_Start.Date_Shamsi_Miladi();
+    }
+@using PagedList.Mvc;
+<h6>اعلان های دریافتی را در این قسمت مشاهده کنید.</h6>
+<hr class="line-under-title" />
+
+<div class="noti-msg">
+    <div class="row">
+    @foreach (var item in Model)
+    {
+        DateTime datemsg = (DateTime)item.Date;
+        <div class="col-md-12">
+            <!-- Card-body -->
+            <div class="card">
+                <div class="card-header">
+                    <p class="noti-msg-title">
+                        <span class="title">@item.Title</span>
+                        <span class="from">@item.sender - @item.educationalType @item.name</span>
+                        <span class="date">@DateConverter.MiladiToShamsi(datemsg)</span>
+                        @*<span class="time">۱ ساعت پیش</span>*@
+                        <span onclick="StarFunction(this)" class="far fa-star star"></span>
+                        <span class="far fa-trash-alt trash"></span>
+                    </p>
+                </div>
+                <div class="card-body">
+                    @item.Msg_Content
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+    </div><!--row -->
+</div><!--noti-msg-->
+
+<hr class="line-under-title" />
+<!-- Pagination -->
+<div class="row class-paging">
+    <div class="col-md-12 text-center">
+        <nav>
+            
+            @Html.PagedListPager(
+    Model,
+    page => Url.Action("Save_Notic", new { page = page }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET",UpdateTargetId= "notification-tab" })
+)
+            
+        </nav>
+    </div>
+</div> <!-- End Pagination -->
+

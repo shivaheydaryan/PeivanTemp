@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ViewModel.InstituteList_VM>
+@{
+    Int64 CurrentInstitute = 0;
+    ViewModel.Institute_Info_Session_VM myinstitute = new ViewModel.Institute_Info_Session_VM();
+    if (Session["Institute_info"] != null)
+    {
+        myinstitute = (ViewModel.Institute_Info_Session_VM)Session["Institute_info"];
+        CurrentInstitute = myinstitute.id;
+    }
+}
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        if (item.id == CurrentInstitute)
+        {
+            <li class="active"><a href="@Url.Action("Index","Classes",new { Institute_id=item.id})">@item.educationalType @item.name</a></li>
+        }
+        else
+        {
+            <li><a href="@Url.Action("Index","Classes",new { Institute_id=item.id})">@item.educationalType @item.name</a></li>
+        }
+
+    }
+}
+else
+{
+    <li>آموزشگاهی برای شما ثبت نشده</li>
+}
+

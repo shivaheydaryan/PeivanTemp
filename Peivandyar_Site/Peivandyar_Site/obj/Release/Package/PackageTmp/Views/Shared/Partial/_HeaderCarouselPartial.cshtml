@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Models.HeaderSlider>
+<!-- Header -->
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="head-title text-center pt-5 wow fadeIn fast">
+                    <h2>نرم افزار پیوندیار</h2>
+                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</p>
+                    <a href="/" class="btn btn-primary">بیشتر بدانید...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+@*<!-- Header Carousel -->
+
+
+
+        
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner container-fluid">
+
+            @{
+                int count = 0;
+                string active = "";
+            }
+
+            @foreach (var item in Model)
+            {
+                if (count == 0)
+                {
+                    active = "item active";
+                }
+                else
+                {
+                    active = "item";
+                }
+                count++;
+
+                <div class="@Url.Content(active)">
+
+                    <div class="caraous-title">
+                        <div class="slide-object">
+                            <div class="col-sm-6 tozih">
+
+                                <h2>@item.header</h2>
+                                <p>
+                                    @item.desc
+                                </p>
+                                
+                                <a class="btn btn-md btn-default site-btn" href="@Url.Content(item.href)">اطلاعات بیشتر</a>
+                            </div>
+                            <div class="col-sm-6 caraous-img-box">
+                                @{string imgsrc = "~/Content/images/HeaderSlider/header-" + item.id.ToString()+".png"; }
+                                <img src="@Url.Content(imgsrc)" class="img-responsive slide-pic">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+            
+
+           
+
+        </div>
+        <!-- Controls -->*@
+
+

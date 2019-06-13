@@ -1,0 +1,58 @@
+﻿@model PagedList.IPagedList<ViewModel.MessageListVM>
+@using PagedList.Mvc;
+<h6>اعلان های ذخیره شده را در این قسمت مشاهده کنید.</h6>
+
+<hr class="line-under-title" />
+
+<div class="noti-msg">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-12">
+                <!-- Card-body -->
+                <div class="card">
+                    <div class="card-header">
+                        <p class="noti-msg-title">
+                            <span class="title">@item.Title</span>
+                            <span class="from">@item.sender - @item.educationalType @item.name</span>
+                            <span class="date">@item.Date</span>
+                            <span class="time">۱ ساعت پیش</span>
+                            <span onclick="StarFunction(this)" class="far fa-star star"></span>
+                            <span class="far fa-trash-alt trash"></span>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        @item.Msg_Content
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>
+
+<hr class="line-under-title" />
+<!--Pagination-->
+<div class="row class-paging">
+    <div class="col-md-12 text-center">
+        <nav>
+            @Html.PagedListPager(
+    Model,
+    page => Url.Action("Inbox_Notic", new { page = page }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "notification-tab" })
+)
+            <ul class="pagination d-flex justify-content-center">
+                <li><a href="#">&raquo;</a></li>
+                <li class="active"><a href="#">۱</a></li>
+                <li><a href="#">۲</a></li>
+                <li><a href="#">۳</a></li>
+                <li><a href="#">۴</a></li>
+                <li><a href="#">۵</a></li>
+                <li><a href="#">&laquo;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div> <!--End Pagination-->

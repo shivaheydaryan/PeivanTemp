@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ViewModel.NoticList_VM>
+@{
+    App_Start.Date_Shamsi_Miladi DateConverter = new App_Start.Date_Shamsi_Miladi();
+
+}
+<!--Notification-->
+    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <span class="fas fa-bell header-icon" aria-hidden="true"></span>
+        @if (Model != null)
+        {
+            if (Model.Count() > 0)
+            {
+                <span class="label label-message" aria-hidden="true">@Model.Count()</span>
+            }
+        }
+        
+    </a>
+    <ul class="dropdown-menu dropdown-nav-noti">
+        <li class="notifi-title">اعلان ها</li>
+        <li class="list-group">
+
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <!--List Item-->
+                    <a href="#" class="list-group-item text-right">
+                        <div class="media">
+                            <div class="media-heading">
+                                <i class="fas fa-bell inside-icon-notifi"></i>@item.Msg_Content
+                            </div>
+                            <p class="m-0">
+                                @if (item.Date != null)
+                                {
+                                    <span class="text-date pull-left">@DateConverter.MiladiToShamsi((DateTime)item.Date)</span>
+                                }
+                                <span class="text-from">از: @item.sender</span>
+                                <span class="text-school">@item.name</span>
+                            </p>
+                        </div>
+                    </a>
+                }
+            }
+            
+            <a href="@Url.Action("Index","Notifications",null)" class="list-group-item text-center all-noti">
+                دیدن همه اعلان ها&nbsp;&nbsp;<i class="far fa-arrow-alt-circle-left"></i>
+            </a>
+        </li>
+
+    </ul>
+<!--End Notification-->

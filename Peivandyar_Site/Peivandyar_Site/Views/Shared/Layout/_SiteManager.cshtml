@@ -1,0 +1,167 @@
+﻿
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="fa" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="" />
+    <meta name="description" content="must add somthing">
+    <meta name="author" content="peivandyar">
+
+    <title>داشبورد مدیریت</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="~/Content/dashboard/font-style-dashboard.css" />
+    
+    <link href="~/Content/dashboard/all-style-dashboard.css" rel="stylesheet" />
+
+    <link href="~/Content/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+    
+
+    <link href="~/Content/plugin/animate.css" rel="stylesheet" />
+    <link href="~/Content/plugin/waves-effect.css" rel="stylesheet" />
+    @RenderSection("Styles", false)
+</head>
+
+
+<body>
+    
+    <!--Main Content Area-->
+    <section id="top-nav">
+        <div class="nav navbar-primary navbar-fixed-top valign-top" id="dashboard-nav">
+            <div class="row">
+
+                <header id="nav-header" class="clearfix">
+                    <div class="col-md-10">
+                        <ul class="top-ul">
+                            
+                            
+                            <!--Profile Notification-->
+                            @{
+                                Models.User userinfo = (Models.User)Session["User"];
+                            }
+                            <li class="dropdown profile-nav">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <span class="fa fa-user header-icon" id="header-profile"></span>
+                                    &nbsp;@userinfo.firstname  @userinfo.lastname
+                                </a>
+                                <ul class="dropdown-menu dropdown-profile">
+                                    <li><a href="#"><i class="fa fa-user profile-icon"></i>&nbsp;پروفایل</a></li>
+                                    <li><a href="#"><i class="fa fa-lock profile-icon"></i>&nbsp;قفل کردن پنل</a></li>
+                                    <li><a href="../index.html"><i class="fa fa-sign-out profile-icon"></i>&nbsp;خروج</a></li>
+                                </ul>
+                            </li> <!--End Profile-->
+
+
+                            <!--Notification-->
+                            <li id="li_notic_panel" class="dropdown fixed-width hidden-xs noti-nav">
+                                
+                            </li> <!--End Notification-->
+                            <!--Messgae Notification-->
+                            <li id="li_msg_panel" class="dropdown fixed-width hidden-xs msg-nav " >
+                            </li> <!--End Notification-->
+                        </ul>
+                        
+                    </div>
+
+                    <div class="col-md-2">
+                        <nav class="navbar-default">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" onclick="myFunction()">
+                                <span class="sr-only">Toggle Navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </nav>
+                        <h4 class="text-center titr-peivand hidden-sm hidden-xs">پیوندیار</h4>
+                        <!--
+                        <a href="../index.html" class="top-logo hidden-sm hidden-xs">
+                           <img src="../images/logo-wot.png" class="img-responsive"/>
+                        </a>-->
+                    </div>
+
+                </header>
+            </div>
+        </div> <!--End Main Content Area-->
+    </section>
+
+    <!--Body & Side Menu-->
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+
+            <!--Side Menu-->
+            @Html.Partial("Partial/_SideMenuManagerPartial")
+
+
+            <!--Create Page Here and Footer -->
+            @RenderBody()
+            
+
+            <!--End Page Body-->
+
+        </div>
+    </div>
+    <!--Script-->
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/dashboard/main-dashboard.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        $(document).ready(function (ev) {
+            LoadMessage();
+            LoadNotification();
+        });
+
+
+        //  Load Notification
+        function LoadMessage()
+        {
+            
+            $.ajax
+                ({
+                    url: "/Dashboard/MSGList",
+                    contentType: "application/html; charset=utf-8",
+                    type: "GET",
+                    cache: !0,
+                    datatype: 'html',
+                    success: function (data) {
+                        $("#li_msg_panel").html(data)
+                        
+                    },
+                    error: function () {
+                        $("#li_msg_panel").addClass("hidden")
+                    }
+                })
+        }
+        //  Load Meassage
+        function LoadNotification()
+        {
+            $.ajax
+                ({
+                    url: "/Dashboard/NoticList",
+                    contentType: "application/html; charset=utf-8",
+                    type: "GET",
+                    cache: !0,
+                    datatype: 'html',
+                    success: function (data) {
+                        //data = JSON.stringify(data);
+                        //alert(data.list_msg_unread[0].name_sender);
+                        //alert(data.list_msg_unread.length)
+                        $("#li_notic_panel").html(data)
+                        
+                        
+                    },
+                    error: function () {
+                        $("#li_notic_panel").addClass("hidden")
+                    }
+                })
+        }
+    </script>
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

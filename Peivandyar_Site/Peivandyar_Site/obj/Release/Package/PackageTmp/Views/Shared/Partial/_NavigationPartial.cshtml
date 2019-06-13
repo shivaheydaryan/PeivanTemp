@@ -1,0 +1,73 @@
+﻿<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-light fixed-top" id="main-nav">
+    <div class="container">
+        <a href="@Url.Action("Index","Home",null)" class="navbar-brand">
+            <img src="~/Content/images/Logo-wn-small.png" width="50" height="50" alt="peyvandyar-logo">
+            پیوندیار
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#re-navbar">
+            <i class="fas fa-bars"></i>
+            منو
+        </button>
+        <div class="navbar-collapse collapse justify-content-stretch" id="re-navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link mytime-2s" href="@Url.Action("institutes","Home",null)">مراکز آموزشی<span class="sr-only">Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mytime-2s" href="@Url.Action("Article","Home",null)">مقاله ها</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mytime-2s" href="@Url.Action("Download","Home",null)">دانلود نرم افزار</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mytime-2s" href="@Url.Action("Addregister_institute","Home",null)">ثبت مرکز آموزشی</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                
+
+                @if (Session["User"] != null)
+                {
+                    Models.User userinfo = (Models.User)Session["User"];
+
+                    <li class="dropdown">
+                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                            @userinfo.firstname   @userinfo.lastname
+                        </button>
+                        <ul class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
+                            @if (Session["Access"] != null)
+                            {
+                                List<Models.Access> user_access = (List<Models.Access>)Session["Access"];
+
+                                if (user_access.Exists(p => p.caption == "Dashboard"))
+                                {
+                                    <li><a class="dropdown-item" href="@Url.Action("Index","maindashboard")"><i class="fas fa-tachometer-alt"></i>&nbsp;پنل مدیریت</a></li>
+                                }
+                            }
+                            
+                            <li><a class="dropdown-item" href="@Url.Action("Exit","Login")"><i class="fas fa-sign-out-alt"></i>&nbsp;خروج</a></li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+
+                    <li class="nav-item">
+                        @Html.ActionLink("ثبت نام", "Index", "Login", null, new { @class = "nav-link mytime-2s" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("ورود", "Index", "Login", null, new { @class = "nav-link mytime-2s border-light" })
+                    </li>
+
+                }
+                
+                
+                
+
+
+            </ul>
+        </div>
+    </div>
+</nav>

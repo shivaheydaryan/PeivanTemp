@@ -1,0 +1,641 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BE8EA4AD-1C48-4813-BCC0-BF59D573D252}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Peivandyar_Site</RootNamespace>
+    <AssemblyName>Peivandyar_Site</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\Login\LoginController.cs" />
+    <Compile Include="API\School\SchoolController.cs" />
+    <Compile Include="App_Start\AccessAttribute.cs" />
+    <Compile Include="App_Start\AuthenticationAttribute.cs" />
+    <Compile Include="App_Start\AuthorizeAttribute.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\ConnectionString.cs" />
+    <Compile Include="App_Start\Date_Shamsi_Miladi.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\LogApiAttribute.cs" />
+    <Compile Include="App_Start\PagerCreator.cs" />
+    <Compile Include="App_Start\PersianDateExtensionMethods.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\TokenAttribute.cs" />
+    <Compile Include="App_Start\utility\HelperExtensions.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\maindashboard\ClassesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\maindashboard\EmployeeController.cs" />
+    <Compile Include="Controllers\maindashboard\maindashboardController.cs" />
+    <Compile Include="Controllers\maindashboard\MessagesController.cs" />
+    <Compile Include="Controllers\maindashboard\NoteController.cs" />
+    <Compile Include="Controllers\maindashboard\NotificationsController.cs" />
+    <Compile Include="Controllers\maindashboard\StudentController.cs" />
+    <Compile Include="Controllers\maindashboard\TeacherController.cs" />
+    <Compile Include="Controllers\MyClass\ImgUrlCreator.cs" />
+    <Compile Include="Controllers\peivandashboard\HomePeivandController.cs" />
+    <Compile Include="Controllers\peivandashboard\ListInstituteController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Access.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleUser.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\CityZone.cs" />
+    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\DataContext.cs" />
+    <Compile Include="Models\Institutekind.cs" />
+    <Compile Include="Models\Institute_Grade.cs" />
+    <Compile Include="Models\Class_Student.cs" />
+    <Compile Include="Models\Class_User.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseTotal.cs" />
+    <Compile Include="Models\Course_STC.cs" />
+    <Compile Include="Models\Discipline_Item.cs" />
+    <Compile Include="Models\Encouragement_Punishment.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\Extracurricular.cs" />
+    <Compile Include="Models\Grade.cs" />
+    <Compile Include="Models\HeaderSlider.cs" />
+    <Compile Include="Models\Health.cs" />
+    <Compile Include="Models\Homework.cs" />
+    <Compile Include="Models\ICC.cs" />
+    <Compile Include="Models\Institute.cs" />
+    <Compile Include="App_Start\LogFilterAttribute.cs" />
+    <Compile Include="Models\Institute_Course.cs" />
+    <Compile Include="Models\Institute_CourseTotal.cs" />
+    <Compile Include="Models\Institute_Term.cs" />
+    <Compile Include="Models\Institute_User.cs" />
+    <Compile Include="Models\Jobs.cs" />
+    <Compile Include="Models\LessonPlan.cs" />
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\MentalState.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Message_Content.cs" />
+    <Compile Include="Models\Message_Receiver.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Notification_Content.cs" />
+    <Compile Include="App_Start\utility\StringClass_Convert.cs" />
+    <Compile Include="Models\ParentType.cs" />
+    <Compile Include="Models\Parent_Student.cs" />
+    <Compile Include="Models\Psychological_File.cs" />
+    <Compile Include="Models\Qualitative_Score.cs" />
+    <Compile Include="Models\quantitative_Score.cs" />
+    <Compile Include="Models\Rank.cs" />
+    <Compile Include="Models\register_institute.cs" />
+    <Compile Include="Models\Register_Score.cs" />
+    <Compile Include="Models\Reminder.cs" />
+    <Compile Include="Models\Roll.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\SPI.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentPersonalInfo.cs" />
+    <Compile Include="Models\StudentProfile.cs" />
+    <Compile Include="Models\Student_Extracurricular.cs" />
+    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\Term.cs" />
+    <Compile Include="Models\testtbl.cs" />
+    <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\Type_Score.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAccess.cs" />
+    <Compile Include="Models\User_Health.cs" />
+    <Compile Include="Models\User_Jobs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\API\Login\AccessLevels.cs" />
+    <Compile Include="ViewModel\API\Login\classInfo.cs" />
+    <Compile Include="ViewModel\API\Login\classSchedule.cs" />
+    <Compile Include="ViewModel\API\Login\job.cs" />
+    <Compile Include="ViewModel\API\Login\LoginAPIResult.cs" />
+    <Compile Include="ViewModel\API\Login\schoole.cs" />
+    <Compile Include="ViewModel\API\School.cs" />
+    <Compile Include="ViewModel\Article_User_Rank_VM.cs" />
+    <Compile Include="ViewModel\ClassInfo_VM.cs" />
+    <Compile Include="ViewModel\Class_List_VM.cs" />
+    <Compile Include="ViewModel\EmployeeList_VM.cs" />
+    <Compile Include="ViewModel\IdNameVM.cs" />
+    <Compile Include="ViewModel\InstituteInfo_VM.cs" />
+    <Compile Include="ViewModel\InstituteList_VM.cs" />
+    <Compile Include="ViewModel\InstituteSmallVM.cs" />
+    <Compile Include="ViewModel\Institute_Full_VM.cs" />
+    <Compile Include="ViewModel\Institute_Info_Session_VM.cs" />
+    <Compile Include="ViewModel\Institute_Term_VM.cs" />
+    <Compile Include="ViewModel\Institute_VM.cs" />
+    <Compile Include="ViewModel\MessageListVM.cs" />
+    <Compile Include="ViewModel\NoticList_VM.cs" />
+    <Compile Include="ViewModel\Schedule_VM.cs" />
+    <Compile Include="ViewModel\StudentInfoesVM.cs" />
+    <Compile Include="ViewModel\StudentList_VM.cs" />
+    <Compile Include="ViewModel\TeacherList_VM.cs" />
+    <Compile Include="ViewModel\Teacher_EmployeListVM.cs" />
+    <Compile Include="ViewModel\Username_FN_LNVM.cs" />
+    <Compile Include="ViewModel\User_Jobs_VM.cs" />
+    <Compile Include="ViewModel\ViewBagError.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\article\images\test-2.png" />
+    <Content Include="Content\article\images\test-1.png" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.js" />
+    <Content Include="Content\dashboard-peivandyar\scripts-co.js" />
+    <Content Include="Content\dashboard-peivandyar\styles-co.css" />
+    <Content Include="Content\dashboard\all-style-dashboard.css" />
+    <Content Include="Content\dashboard\font-style-dashboard.css" />
+    <Content Include="Content\dashboard\persian-datepicker.css" />
+    <Content Include="Content\font-awesome\css\fa-brands.css" />
+    <Content Include="Content\font-awesome\css\fa-brands.min.css" />
+    <Content Include="Content\font-awesome\css\fa-regular.css" />
+    <Content Include="Content\font-awesome\css\fa-regular.min.css" />
+    <Content Include="Content\font-awesome\css\fa-solid.css" />
+    <Content Include="Content\font-awesome\css\fa-solid.min.css" />
+    <Content Include="Content\font-awesome\css\fontawesome-all.css" />
+    <Content Include="Content\font-awesome\css\fontawesome-all.min.css" />
+    <Content Include="Content\font-awesome\css\fontawesome.css" />
+    <Content Include="Content\font-awesome\css\fontawesome.min.css" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\fontiran.css" />
+    <Content Include="Content\images\about.jpg" />
+    <Content Include="Content\images\article-img.png" />
+    <Content Include="Content\images\article.png" />
+    <Content Include="Content\images\attach.png" />
+    <Content Include="Content\images\download-mobile2.png" />
+    <Content Include="Content\images\download.png" />
+    <Content Include="Content\images\each-institute.png" />
+    <Content Include="Content\images\faq.png" />
+    <Content Include="Content\images\future-icon\b-chart.png" />
+    <Content Include="Content\images\future-icon\b-chat.png" />
+    <Content Include="Content\images\future-icon\b-exam.png" />
+    <Content Include="Content\images\future-icon\b-open-book.png" />
+    <Content Include="Content\images\future-icon\b-support.png" />
+    <Content Include="Content\images\future-icon\b-user.png" />
+    <Content Include="Content\images\future-icon\call.png" />
+    <Content Include="Content\images\future-icon\email.png" />
+    <Content Include="Content\images\future-icon\location.png" />
+    <Content Include="Content\images\future-icon\manager.png" />
+    <Content Include="Content\images\future-icon\parent.png" />
+    <Content Include="Content\images\future-icon\teacher.png" />
+    <Content Include="Content\images\harim.png" />
+    <Content Include="Content\images\headerback-index.png" />
+    <Content Include="Content\images\institute.png" />
+    <Content Include="Content\images\Logo-no-padding.png" />
+    <Content Include="Content\images\Logo-wn-small.png" />
+    <Content Include="Content\images\Logo-wn.png" />
+    <Content Include="Content\images\logo-wot.ico" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\profile-a.png" />
+    <Content Include="Content\images\profile-ab.png" />
+    <Content Include="Content\images\profile-e.png" />
+    <Content Include="Content\images\profile-h.png" />
+    <Content Include="Content\images\profile-s.png" />
+    <Content Include="Content\images\profile-sh.png" />
+    <Content Include="Content\images\register-institute.png" />
+    <Content Include="Content\images\schools\fake-school.png" />
+    <Content Include="Content\images\social-icon\call.svg" />
+    <Content Include="Content\images\social-icon\email.svg" />
+    <Content Include="Content\images\social-icon\face.svg" />
+    <Content Include="Content\images\social-icon\insta.svg" />
+    <Content Include="Content\images\social-icon\telegram.svg" />
+    <Content Include="Content\images\User.png" />
+    <Content Include="Content\images\user3-128x128.jpg" />
+    <Content Include="Content\images\user4-128x128.jpg" />
+    <Content Include="Content\images\user5-128x128.jpg" />
+    <Content Include="Content\images\user6-128x128.jpg" />
+    <Content Include="Content\images\user7-128x128.jpg" />
+    <Content Include="Content\images\user8-128x128.jpg" />
+    <Content Include="Content\plugin\animate.css" />
+    <Content Include="Content\plugin\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\plugin\chosen\chosen-sprite.png" />
+    <Content Include="Content\plugin\chosen\chosen.css" />
+    <Content Include="Content\plugin\chosen\chosen.jquery.js" />
+    <Content Include="Content\plugin\chosen\chosen.proto.js" />
+    <Content Include="Content\plugin\chosen\init.js" />
+    <Content Include="Content\plugin\chosen\prism.css" />
+    <Content Include="Content\plugin\chosen\prism.js" />
+    <Content Include="Content\plugin\file-uploader\fancy_fileupload.css" />
+    <Content Include="Content\plugin\file-uploader\fancy_okay.png" />
+    <Content Include="Content\plugin\file-uploader\fancy_remove.png" />
+    <Content Include="Content\plugin\file-uploader\fancy_upload.png" />
+    <Content Include="Content\plugin\file-uploader\jquery.fancy-fileupload.js" />
+    <Content Include="Content\plugin\file-uploader\jquery.fileupload.js" />
+    <Content Include="Content\plugin\file-uploader\jquery.iframe-transport.js" />
+    <Content Include="Content\plugin\file-uploader\jquery.ui.widget.js" />
+    <Content Include="Content\plugin\spin.js" />
+    <Content Include="Content\plugin\wow.js" />
+    <Content Include="Content\styles.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dashboard\chart-page.js" />
+    <Content Include="Scripts\dashboard\chart-student.js" />
+    <Content Include="Scripts\dashboard\Chart.bundle.js" />
+    <Content Include="Scripts\dashboard\Chart.js" />
+    <Content Include="Scripts\dashboard\Chart.min.js" />
+    <Content Include="Scripts\dashboard\main-dashboard.js" />
+    <Content Include="Scripts\dashboard\modal-effect.js" />
+    <Content Include="Scripts\dashboard\persian-calender\persian-date.js" />
+    <Content Include="Scripts\dashboard\persian-calender\persian-datepicker.js" />
+    <Content Include="Scripts\each-institute.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="fonts\glyphicons.zip" />
+    <Content Include="fonts\eot\IRANSans%28FaNum%29_Medium.eot" />
+    <Content Include="fonts\eot\IRANSansWeb%28FaNum%29.eot" />
+    <Content Include="fonts\eot\IRANSansWeb%28FaNum%29_Bold.eot" />
+    <Content Include="fonts\eot\IRANSansWeb%28FaNum%29_Light.eot" />
+    <Content Include="fonts\eot\IRANSansWeb%28FaNum%29_Medium.eot" />
+    <Content Include="fonts\eot\IRANSansWeb%28FaNum%29_UltraLight.eot" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_Bold.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_Light.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_UltraLight.ttf" />
+    <Content Include="fonts\woff\IRANSansWeb%28FaNum%29.woff" />
+    <Content Include="fonts\woff\IRANSansWeb%28FaNum%29_Bold.woff" />
+    <Content Include="fonts\woff\IRANSansWeb%28FaNum%29_Light.woff" />
+    <Content Include="fonts\woff\IRANSansWeb%28FaNum%29_Medium.woff" />
+    <Content Include="fonts\woff\IRANSansWeb%28FaNum%29_UltraLight.woff" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_Bold.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_Light.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_Medium.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_UltraLight.woff2" />
+    <Content Include="Scripts\jqBootstrapValidation.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Views\Shared\Partial\Message\_SendMSG.cshtml" />
+    <Content Include="Views\Shared\Partial\Message\_SaveMSG.cshtml" />
+    <Content Include="Views\Shared\Partial\Message\_DeleteMSG.cshtml" />
+    <Content Include="Views\maindashboard\Notifications\Index.cshtml" />
+    <Content Include="Views\Shared\Partial\Notifications\_InboxNotic.cshtml" />
+    <Content Include="Views\Shared\Partial\Notifications\_SaveNotic.cshtml" />
+    <Content Include="Views\maindashboard\Note\Index.cshtml" />
+    <Content Include="Views\Shared\Partial\Class\_SchedulesPartial.cshtml" />
+    <Content Include="Views\maindashboard\Classes\Schedule.cshtml" />
+    <Content Include="Views\Shared\Partial\Class\_ViewSchedulesPartial.cshtml" />
+    <Content Include="Views\maindashboard\Students\Create.cshtml" />
+    <Content Include="Views\Home\register_institute.cshtml" />
+    <Content Include="Views\Home\institute.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="assets\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Employee\" />
+    <Folder Include="Views\HomePeivand\" />
+    <Folder Include="Views\ListInstitute\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Content\article\test-1.pdf" />
+    <Content Include="Content\article\test-2.pdf" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\font-awesome\less\fa-brands.less" />
+    <Content Include="Content\font-awesome\less\fa-regular.less" />
+    <Content Include="Content\font-awesome\less\fa-solid.less" />
+    <Content Include="Content\font-awesome\less\fontawesome.less" />
+    <Content Include="Content\font-awesome\less\_animated.less" />
+    <Content Include="Content\font-awesome\less\_bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\_core.less" />
+    <Content Include="Content\font-awesome\less\_fixed-width.less" />
+    <Content Include="Content\font-awesome\less\_icons.less" />
+    <Content Include="Content\font-awesome\less\_larger.less" />
+    <Content Include="Content\font-awesome\less\_list.less" />
+    <Content Include="Content\font-awesome\less\_mixins.less" />
+    <Content Include="Content\font-awesome\less\_rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\_screen-reader.less" />
+    <Content Include="Content\font-awesome\less\_stacked.less" />
+    <Content Include="Content\font-awesome\less\_variables.less" />
+    <Content Include="Content\font-awesome\scss\_animated.scss" />
+    <Content Include="Content\font-awesome\scss\fa-brands.scss" />
+    <Content Include="Content\font-awesome\scss\fa-regular.scss" />
+    <Content Include="Content\font-awesome\scss\fa-solid.scss" />
+    <Content Include="Content\font-awesome\scss\fontawesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.woff2" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Views\Shared\Layout\_Site.cshtml" />
+    <Content Include="Views\Shared\Partial\_NavigationPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_HeaderCarouselPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_WhoAreYouPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_MoreSchoolPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_CommentIndexPartial.cshtml" />
+    <Content Include="Views\Home\institutes.cshtml" />
+    <Content Include="Views\Shared\Partial\_InstituteList.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\maindashboard\Index.cshtml" />
+    <Content Include="Views\Shared\Layout\_SiteManager.cshtml" />
+    <Content Include="Views\Shared\Partial\_SideMenuManagerPartial.cshtml" />
+    <Content Include="Views\Shared\Partial\_MainBodyManagerPartial.cshtml" />
+    <Content Include="Views\maindashboard\Classes\Index.cshtml" />
+    <Content Include="Views\maindashboard\Classes\Class_Info.cshtml" />
+    <Content Include="Views\maindashboard\Students\Index.cshtml" />
+    <Content Include="Views\maindashboard\Students\studentlist.cshtml" />
+    <Content Include="Views\maindashboard\Employee\EmployeeList.cshtml" />
+    <Content Include="Views\maindashboard\Messages\Index.cshtml" />
+    <Content Include="Views\Shared\Partial\Message\_InboxMSG.cshtml" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Views\peivandashboard\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Layout\_SitePeivandManager.cshtml" />
+    <Content Include="Views\peivandashboard\ListInstitute\Index.cshtml" />
+    <Content Include="Views\peivandashboard\ListInstitute\Add.cshtml" />
+    <Content Include="Views\peivandashboard\ListInstitute\Edit.cshtml" />
+    <Content Include="Views\Home\Article.cshtml" />
+    <Content Include="Views\Shared\Partial\_ArticleList.cshtml" />
+    <Content Include="Views\Shared\Partial\ManagerDashboard\_UnreadMessage.cshtml" />
+    <Content Include="Views\Shared\Partial\ManagerDashboard\_UnreadNotic.cshtml" />
+    <None Include="Properties\PublishProfiles\Ehsan Babaei Chegeni.pubxml" />
+    <Content Include="Views\maindashboard\Students\Edit.cshtml" />
+    <Content Include="Views\Home\Download.cshtml" />
+    <Content Include="Views\Home\Faq.cshtml" />
+    <Content Include="Views\Home\Harim.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Shared\Partial\ManagerDashboard\_InstituteListSideMenu.cshtml" />
+    <Content Include="Views\maindashboard\Students\StudentInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>40388</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:40388/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

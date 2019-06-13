@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="fa" class="no-js" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Import Your Meta Tags EHSAN">
+    <meta name="keywords" content="به پیوندیار خوش آمدید">
+    <meta name="author" content="تیم نرم افزاری پیوندیار">
+    <link rel="icon" href="~/Content/images/logo-wot.ico" />
+    <title>پیوندیار</title>
+
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/plugin/animate.css" rel="stylesheet" />
+
+    <link href="~/Content/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Page Start Here -->
+
+    <div id="login">
+        <div class="container">
+            <div class="title mb-4 text-right">
+                <h4>برای ورود به سیستم</h4>
+                <hr>
+                <p style="line-height: 28px;">اطلاعات خواسته شده را پر کنید.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    @using (Html.BeginForm("Index", "Login", null, FormMethod.Post))
+                    {
+                        <div class="card text-right">
+                            <h6 class="error d-none">** نام کاربری یا رمزعبور صحیح نمی باشد</h6>
+                            <input name="username" class="form-control input-customize" type="text" placeholder="نام کاربری" required>
+                            <input name="password" class="form-control input-customize" type="text" placeholder="رمز عبور" required>
+                            <div class="remember-forget">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="forget-selected">
+                                            <label class="custom-control-label" for="forget-selected">مرا بخاطر بسپار</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="forget">
+                                            <a href="#"><p>رمز عبور خود را فراموش کرده اید؟</p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">ورود به سیستم</button>
+                            </div>
+                        </div>
+                    }
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="card logo-peivandyar text-center d-flex align-items-center">
+                        <a href="index.html">
+                            <img src="~/Content/images/Logo-wn-small.png" alt="logo-peivandyar">
+                            <h6 class="company-name">پیوندار</h6>
+                            <p class="shoar">والدین آگاه ، جامعه آگاه</p>
+                        </a>
+                        <h6 class="copyright-card">کليه حقوق اين سايت متعلق به تیم <a href="index.html">پیوندیار</a> می باشد.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src="css/bootstrap/bootstrap.js"></script>
+    <script src="js/script.js"></script>
+    <script src="plugin/wow.js"></script>
+
+</body>
+</html>

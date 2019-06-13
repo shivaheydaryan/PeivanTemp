@@ -1,0 +1,388 @@
+﻿@model ViewModel.StudentInfoesVM
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/Layout/_SiteManager.cshtml";
+}
+@{ 
+    string Class_Name = "";
+    string Institute_Name = "";
+
+    ViewModel.Institute_Info_Session_VM Institute_info_Session = new ViewModel.Institute_Info_Session_VM();
+    if (Session["Institute_info"] != null)
+    {
+        Institute_info_Session = (ViewModel.Institute_Info_Session_VM)Session["Institute_info"];
+        Institute_Name = Institute_info_Session.Institute_Types_Caption + " " + Institute_info_Session.name;
+    }
+
+    ViewModel.ClassInfo_VM class_info = new ViewModel.ClassInfo_VM();
+    if (Session["Class_info"] != null)
+    {
+        class_info = (ViewModel.ClassInfo_VM)Session["Class_info"];
+        Class_Name = class_info.Name;
+    }
+
+    App_Start.Date_Shamsi_Miladi DateConverter = new App_Start.Date_Shamsi_Miladi();
+    Models.StringClass_Convert STRConverter = new Models.StringClass_Convert();
+}
+<!--Create Page Here and Footer-->
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 valign-top display-table-row">
+    <div id="content">
+        <header>
+            <div class="action-back">
+                <a href="@Url.Action("Student_list","Student")" class="btn btn-default btn-back pull-left" data-toggle="tooltip" title="">
+                    بازگشت&nbsp;
+                    <i class="fas fa-arrow-alt-circle-left"></i>
+                </a>
+            </div>
+            <h4 class="choosed-class-name"><i class="fas fa-plus-circle"></i>&nbsp;ویرایش دانش آموز در کلاس @Class_Name</h4>
+            <hr class="line-under-title" />
+
+            <ol class="breadcrumb">
+                <li><a href="#">@Institute_Name</a></li>
+                <li><a href="#">@Class_Name</a></li>
+                <li>ویرایش دانش آموز</li>
+            </ol>
+
+        </header>
+
+        <!--Alert Msg-->
+    @{ 
+        ViewModel.ViewBagError msg = new ViewModel.ViewBagError();
+        if (ViewBag.ErrorMsg != null)
+        {
+            msg = (ViewModel.ViewBagError)ViewBag.ErrorMsg;
+        }
+    }
+        @if (ViewBag.ErrorMsg != null)
+        {
+            <div class="alert alert-@msg.ClassName fade in">
+                <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+                @msg.Msg
+            </div>
+        }
+        
+        
+        <hr class="line-under-title" />
+
+        <!-- Tab Body -->
+        <div id="tabs">
+
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active">
+                    <a data-toggle="tab" href="#student-register-tab-personalinfo">
+                        <i class="fas fa-user"></i>&nbsp;مشخصات فردی
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#student-register-tab-education">
+                        <i class="fas fa-graduation-cap"></i>&nbsp;سوابق تحصیلی
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#student-register-tab-family-info">
+                        <i class="fas fa-info-circle"></i>&nbsp;مشخصات خانوادگی
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#student-register-tab-health">
+                        <i class="fas fa-heart"></i>&nbsp;اطلاعات سلامت
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="tab-content">
+
+                <!--Student Register Tab Personalinfo-->
+            @*@Html.AntiForgeryToken();*@
+            @using (@Html.BeginForm("Update", "Student", FormMethod.Post))
+            {
+                if (Model != null)
+                {
+                    <input type="hidden" name="username" value="@Model.username" />
+                    <div id="student-register-tab-personalinfo" class="tab-pane fade in active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-md-push-6 group-one">
+                                    <h5>فعال :</h5>
+                                    @if (Model.Active == null || Model.Active == true)
+                                    {
+                                        @Html.CheckBox("Active",true);
+                                    }
+                                    else
+                                    {
+                                        @Html.CheckBox("Active", false);
+                                    }
+
+
+                                    <h5>نام :</h5>
+                                    <input name="firstname" class="input-customize2" type="text" placeholder="" value="@Model.firstname">
+                                    <h5>نام خانوادگی : </h5>
+                                    <input name="lastname" class="input-customize2" type="text" placeholder="" value="@Model.lastname">
+                                    <h5>کد دانش آموزی : </h5>
+                                    <input name="Student_Code" class="input-customize2" type="text" placeholder="" value="@Model.Student_Code">
+                                    <h5>تاریخ تولد : </h5>
+                                    @if (Model.birtday != null)
+                                    {
+                                        string mybirth= STRConverter.GetPersianNumber( DateConverter.MiladiToShamsi((DateTime)Model.birtday));
+                                        <input name="birtdaystr" class="input-customize2 observer-example date-picker" type="text" placeholder="" value="@mybirth">
+                                    }
+                                    else
+                                    {
+                                        <input name="birtdaystr" class="input-customize2 observer-example date-picker" type="text" placeholder="" >
+                                    }
+
+                                    <h5>جنسیت : </h5>
+                                    <select name="gender" class="input-customize2">
+                                        @if (Model.gender == null || Model.gender == true)
+                                        {
+                                            <option value="true" selected>مرد</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="true">مرد</option>
+                                        }
+
+                                        @if (Model.gender == false)
+                                        {
+                                            <option value="false" selected>زن</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="false">زن</option>
+                                        }
+
+
+                                    </select>
+                                    
+                                    <h5>شماره ملی : </h5>
+                                    <input name="Code_Melli" class="input-customize2" type="text" placeholder="" value="@Model.Code_Melli">
+                                    
+                                    
+                                    <h5>آدرس محل سکونت دایم : </h5>
+                                    <input name="Address_Primary" class="input-customize2" type="text" placeholder="" value="@Model.Address_Primary">
+                                    
+                                </div>
+                                <div class="col-md-6 col-md-pull-6 group-one">
+                                    <h5>نام پدر : </h5>
+                                    <input name="Fathername" class="input-customize2" type="text" placeholder="" value="@Model.Fathername">
+                                    <h5>نام مادر : </h5>
+                                    <input name="MotherName" class="input-customize2" type="text" placeholder="" value="@Model.MotherName">
+                                    <h5>نام خانوادگی مادر : </h5>
+                                    <input name="Lastname_Mother" class="input-customize2" type="text" placeholder="" value="@Model.Lastname_Mother">
+
+                                    <h5>شماره تماس ثابت : </h5>
+                                    <input name="tell" class="input-customize2" type="text" placeholder="" value="@Model.tell">
+                                    <h5>شماره همراه : </h5>
+                                    <input name="Mobile" class="input-customize2" type="text" placeholder="" value="@Model.Mobile">
+                                    <h5>شماره شناسنامه : </h5>
+                                    <input name="Shsh" class="input-customize2" type="text" placeholder="" value="@Model.Shsh">
+                                    <h5>آدرس محل سکونت فعلی : </h5>
+                                    <input name="Address_Secondary" class="input-customize2" type="text" placeholder="" value="@Model.Address_Secondary">
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="line-under-title" />
+                        <!--btn Ok-Or-Not -->
+                        <div class="text-center ok-or-not">
+                            <button type="submit" class="btn btn-sm btn-default">
+                                <span class="fas fa-check-circle" aria-hidden="true"></span>&nbsp;ویرایش دانش آموز
+                            </button>
+
+
+
+                            <a class="btn btn-sm btn-danger" href="@Url.Action("Student_list","Student",null)" role="button">
+                                <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;انصراف
+                            </a>
+                        </div><!--End btn Ok-Or-Not -->
+                    </div>
+                }
+
+            }
+                
+                <!--End Student Register Tab Personalinfo-->
+                <!--Student Register Tab Education-->
+                <div id="student-register-tab-education" class="tab-pane fade">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-md-push-6 group-one">
+                                <h5>نام مرکز آموزشی :</h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                                <h5>کد مرکز آموزشی : </h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                                <h5>آدرس مرکز آموزشی : </h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                            </div>
+                            <div class="col-md-6 col-md-pull-6 group-one">
+                                <h5>مقطع تحصیلی گذرانده شده :</h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                                <h5>رشته تحصیلی : </h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="line-under-title" />
+                    <!--btn Ok-Or-Not -->
+                    <div class="text-center ok-or-not">
+                        <a class="btn btn-sm btn-default" href="#" role="button">
+                            <span class="fas fa-check-circle" aria-hidden="true"></span>&nbsp;ثبت تغییرات
+                        </a>
+
+                        <a>&nbsp;&nbsp;&nbsp;</a>
+
+                        <a class="btn btn-sm btn-danger" href="#" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;انصراف
+                        </a>
+                    </div><!--End btn Ok-Or-Not -->
+                </div>
+                <!--End Student Register Tab Education-->
+                <!--Student Register Tab Family Info-->
+                <div id="student-register-tab-family-info" class="tab-pane fade">
+                    <div class="container">
+                        <div class="row">
+
+                        </div>
+                    </div>
+                </div>
+                <!--End Student Register Tab Family Info-->
+                <!--Student Register Tab Health-->
+                <div id="student-register-tab-health" class="tab-pane fade">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-md-push-6 group-one">
+                                <h5>گروه خون :</h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                                <h5>سابقه بیماری خاص : </h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                                <h5>درجه حادی بیماری : </h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                            </div>
+                            <div class="col-md-6 col-md-pull-6 group-one">
+                                <h5>بیماری فعلی :</h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                                <h5>درجه حادی بیماری : </h5>
+                                <input class="input-customize2" type="text" placeholder="">
+                                <div class="dropup body-dropdown dropdown-small">
+                                    <a class="btn btn-default btn-health dropdown-toggle" id="chart-esme-dars" data-toggle="dropdown" href="#">
+                                        وضعیت جسمانی : <span class="fas fa-angle-down arrow-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu text-right pull-right my-check drop-up">
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>سلامت کامل
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>نابینا و ناشنوا
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>معلول جسمی حرکتی
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>معلول بینایی
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>معول شنوایی
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>معلول گویایی
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>جانباز
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="check">
+                                                <input type="checkbox" name="moon_name">
+                                                <span class="checkmark"></span>سایر معلولیت ها
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="line-under-title" />
+                    <!--btn Ok-Or-Not -->
+                    <div class="text-center ok-or-not">
+                        <a class="btn btn-sm btn-default" href="#" role="button">
+                            <span class="fas fa-check-circle" aria-hidden="true"></span>&nbsp;ثبت تغییرات
+                        </a>
+
+                        <a>&nbsp;&nbsp;&nbsp;</a>
+
+                        <a class="btn btn-sm btn-danger" href="#" role="button">
+                            <span class="fas fa-times-circle" aria-hidden="true"></span>&nbsp;انصراف
+                        </a>
+                    </div><!--End btn Ok-Or-Not -->
+                </div>
+                <!--End Student Register Tab Health-->
+
+            </div><!--End tab-content-->
+
+        </div><!--End MailBox Body Tag-->
+        <!-- Modal For Delete Student -->
+        <div class="modal fade" id="modal-delete" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <!--
+                     <div class="modal-header">
+                     </div> -->
+                    <div class="modal-body text-center">
+                        <h4>آیا مایل به حذف هستید؟</h4>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">خیر</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger" data-send="modal">بله</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- End Modal For Delete Student -->
+
+        <hr class="line-under-title" />
+
+    </div><!--End Container-->
+
+</div><!--End Page Body-->
+@section Styles {
+    @Styles.Render("~/Content/dashboard/persian-datepicker.css")
+}
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/dashboard/persian-calender/persian-datepicker.js")
+    @Scripts.Render("~/Scripts/dashboard/persian-calender/persian-date.js")
+    <script>
+        $('.observer-example').persianDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+            altField: '.observer-example-alt',
+            initialValue: false
+        });
+    </script>
+    
+    }

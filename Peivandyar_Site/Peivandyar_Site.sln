@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peivandyar_Site", "Peivandyar_Site\Peivandyar_Site.csproj", "{BE8EA4AD-1C48-4813-BCC0-BF59D573D252}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peivandyar_Site.Tests", "Peivandyar_Site.Tests\Peivandyar_Site.Tests.csproj", "{F58FD3B2-F0EC-4088-A3C8-35A621DACC2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE8EA4AD-1C48-4813-BCC0-BF59D573D252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE8EA4AD-1C48-4813-BCC0-BF59D573D252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE8EA4AD-1C48-4813-BCC0-BF59D573D252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE8EA4AD-1C48-4813-BCC0-BF59D573D252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F58FD3B2-F0EC-4088-A3C8-35A621DACC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F58FD3B2-F0EC-4088-A3C8-35A621DACC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F58FD3B2-F0EC-4088-A3C8-35A621DACC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F58FD3B2-F0EC-4088-A3C8-35A621DACC2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

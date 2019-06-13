@@ -1,0 +1,659 @@
+﻿@model  ViewModel.Institute_VM
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/Layout/_SitePeivandManager.cshtml";
+}
+@{
+    ViewModel.ViewBagError msg = (ViewModel.ViewBagError)ViewBag.msg;
+}
+@{ 
+    List<Models.InstituteKind> InstituteKindes = new List<Models.InstituteKind>();
+    if (ViewBag.InstituteKindes != null)
+    {
+        InstituteKindes = (List<Models.InstituteKind>)ViewBag.InstituteKindes;
+    }
+
+    List<Models.Grade> GradesList = new List<Models.Grade>();
+    if (ViewBag.GradesList != null)
+    {
+        GradesList = (List<Models.Grade>)ViewBag.GradesList;
+    }
+
+
+}
+<!-- Body Content -->
+<div id="content" class="">
+    <div class="container-fluid">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title">ویرایش @Model.Institute.name</h5>
+                <a href="@Url.Action("Index", "ListInstitute",null)" class="btn btn-secondary back-btn">برگشت&nbsp;<i class="fas fa-angle-double-left"></i></a>
+                <hr class="line-title">
+            </div>
+            @using (@Html.BeginForm("UpdateInstitute", "ListInstitute", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                if (msg != null)
+                {
+            <!--Alert Msg-->
+                    <div class="alert alert-@msg.ClassName">
+                        <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+                        @msg.Msg
+                    </div>
+                }
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <input name="id" type="hidden" value="@Model.Institute.id" />
+                            <!-- فعال بودن و رتبه -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select name="order" class="custom-select" id="select-order">
+                                            @if (Model.Institute.order == 0)
+                                            {
+                                                <option selected>اولویت آموزشگاه</option>
+                                            }
+                                                
+                                            @for (int i = 1; i <= 10; i++)
+                                            {
+                                                if (Model.Institute.order == i)
+                                                {
+                                                    <option value="@i" selected>@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                            
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="Active">فعال بودن :</label>
+                                        @if (Model.Institute.Active == true || Model.Institute.Active == null)
+                                        {
+                                            
+                                            @Html.CheckBox("Active",true)
+                                        }
+                                        else
+                                        {
+                                            
+                                            @Html.CheckBox("Active", false)
+                                        }
+                                        
+                                    </div>
+                                    <div class="col-md-4">
+                                        @{ 
+                                            App_Start.Date_Shamsi_Miladi dateclass = new App_Start.Date_Shamsi_Miladi();
+                                            string Shamsidateenter = dateclass.MiladiToShamsi(DateTime.Parse(Model.Institute.Enter_Date.ToString()));
+                                            Models.StringClass_Convert classconvert = new Models.StringClass_Convert();
+                                            Shamsidateenter = classconvert.GetPersianNumber(Shamsidateenter);
+                                        }
+                                        <input name="Enter_Date" type="text" class="observer-example date-picker form-control" value="@Shamsidateenter" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- نام آموزشگاه -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="text" name="name" value="@Model.Institute.name" id="name" class="form-control" placeholder="نام آموزشگاه" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="En_Name" value="@Model.Institute.En_Name" id="name" class="form-control" placeholder="نام آموزشگاه به انگلیسی" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="educationalCode" value="@Model.Institute.educationalCode" id="educationalCode" class="form-control" placeholder="کد آموزشگاه" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- نوع آموزشگاه -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <select name="Gradeid" data-placeholder="نوع آموزشگاه" class="custom-select chosen-select chosen-rtl" id="select-cross" multiple>
+                                            @if (GradesList != null)
+                                            {
+                                                foreach (var item in GradesList)
+                                                {
+                                                    if (Model.Grades != null)
+                                                    {
+                                                        if (Model.Grades.FindIndex(x => x.id == item.id) != -1)
+                                                        {
+                                                            <option value="@item.id" selected>@item.Name</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.id">@item.Name</option>
+                                                        }
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <option value="@item.id">@item.Name</option>
+                                                    }
+
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="custom-select" name="InstituteKindid" id="InstituteKindid">
+                                            @if (InstituteKindes != null)
+                                            {
+                                                foreach (var item in InstituteKindes)
+                                                {
+                                                    if (Model.Institute.InstituteKindid == item.id)
+                                                    {
+                                                        <option value="@item.id" selected>@item.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.id" >@item.Name</option>
+                                                    }
+                                                }
+                                            }
+
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="custom-select" name="boyOrGirl" id="boyOrGirl">
+                                            @if (Model.Institute.boyOrGirl == false)
+                                            {
+                                                <option value="false" selected>دخترانه</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="false" >دخترانه</option>
+                                            }
+
+                                            @if (Model.Institute.boyOrGirl == true)
+                                            {
+                                                <option value="true" selected>پسرانه</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="true">پسرانه</option>
+                                            }
+
+                                            @if (Model.Institute.boyOrGirl == null)
+                                            {
+                                                <option value="null" selected>دخترانه و پسرانه</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="null">دخترانه و پسرانه</option>
+                                            }
+
+                                            
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- استان و شهر و منطقه -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="custom-select" name="ostan_codevm" id="ddl_ostanlist">
+                                            <option value="0" selected>استان</option>
+                                            @{ 
+
+                                                Models.StringClass_Convert MyConverter = new Models.StringClass_Convert();
+                                                string CurrentOstanCode = Model.Institute.city_code.Length>=4? Model.Institute.city_code.Substring(0, 4):"";
+                                                string CurrentCityCode = Model.Institute.city_code.Length >= 8 ? Model.Institute.city_code.Substring(4, 4):"";
+                                                string CurrentZoneCode = Model.Institute.city_code.Length >= 12 ? Model.Institute.city_code.Substring(8, 4):"";
+                                            }
+                                            @foreach (var item in ViewBag.ostanlist)
+                                            {
+                                                string my4code = MyConverter.Convert_to_4str(item.Code);
+                                                if (CurrentOstanCode == my4code)
+                                                {
+                                                    <option value="@item.Code" selected>@item.Pname</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Code">@item.Pname</option>
+                                                }
+
+                                            }
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="custom-select" name="city_codevm" id="ddl_cities">
+                                            @if (CurrentCityCode != "")
+                                            {
+                                                string orginal_city = MyConverter.Convert_4str_To_orginal(CurrentCityCode);
+                                                
+                                                <option value="@orginal_city">شهر</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="0" selected>شهر</option>
+                                            }
+                                            
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="custom-select" name="zone_Codevm" id="ddl_zone">
+                                            @if (CurrentZoneCode != "")
+                                            {
+                                                string orginal_zone = MyConverter.Convert_4str_To_orginal(CurrentZoneCode);
+
+                                                <option value="@orginal_zone" selected>منطقه</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="0" selected>منطقه</option>
+                                            }
+                                            
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- شماره تماس -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="tel" name="tel1" id="tel1" class="form-control" value="@Model.Institute.tel1" placeholder="شماره تلفن ۱" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="tel" name="tel2" id="tel2" class="form-control" value="@Model.Institute.tel2" placeholder="شماره تلفن ۲">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- شماره همراه -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="tel" name="mobile1" id="mobile1" class="form-control" value="@Model.Institute.mobile1" placeholder="شماره همراه ۱" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="tel" name="mobile2" id="mobile2" class="form-control" value="@Model.Institute.mobile2" placeholder="شماره همراه ۲">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--فکس و کد پستی-->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" name="fax" id="fax" value="@Model.Institute.fax" class="form-control" placeholder="فکس">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input name="postalCode" type="text" id="code-post" value="@Model.Institute.postalCode" class="form-control" placeholder="کد پستی">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ایمیل و وب سایت -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="url" name="website" id="website" value="@Model.Institute.website" class="form-control" placeholder="آدرس وب سایت">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" name="Email" id="email" class="form-control" value="@Model.Institute.Email" placeholder="ایمیل">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- شبکه های اجتماعی -->
+                            <div class="select-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" name="Group_Channel1" id="social-telegram" value="@Model.Institute.Group_Channel1" class="form-control" placeholder="آیدی تلگرام">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="Group_Channel2" id="social-instagram" class="form-control" value="@Model.Institute.Group_Channel2" placeholder="آیدی اینستاگرام">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- نقشه گوگل -->
+                            <input type="text" name="Google_Map" id="google-map" class="form-control" value="@Model.Institute.Google_Map" placeholder="آدرس نقشه">
+                            <!-- شعار -->
+                            <div class="form-group mt-3">
+                                <label for="textarea-shoar">شعار : </label>
+                                <textarea class="form-control" name="shoar" id="textarea-shoar"  rows="3">@Model.Institute.shoar</textarea>
+                            </div>
+                            <!-- توضیحات -->
+                            <div class="form-group">
+                                <label for="textarea-tozihat">توضیحات : </label>
+                                <textarea class="form-control" name="Description" id="textarea-tozihat"  rows="3">@Model.Institute.Description</textarea>
+                            </div>
+                            <!-- آدرس -->
+                            <div class="form-group">
+                                <label for="textarea-address">آدرس : </label>
+                                <textarea class="form-control" name="address" id="textarea-address"  rows="3" required>@Model.Institute.address</textarea>
+                            </div>
+
+                        </div>
+                        <!--Upload Picture-->
+                        <div class="col-md-6">
+
+                            <h6 class="title-file-uploader d-none">عکس پس زمینه</h6>
+                            <input class="d-none" id="my-file-uploader-background88888" type="file" name="BackgroundFile" accept=".jpg, .png, image/jpeg, image/png">
+
+                            <h6 class="title-file-uploader">لوگو مرکز آموزشی</h6>
+                            <input id="my-file-uploader-logo8888" type="file" name="LogoFile" accept=".png,image/png">
+
+                            <h6 class="title-file-uploader">عکس روی کارت</h6>
+                            <input id="my-file-uploader-card88888" type="file" name="CartFile" accept=".png, image/png">
+
+                            <h6 class="title-file-uploader">عکس های مرکز آموزشی</h6>
+                            <input id="my-file-uploader-institute88888" type="file" name="InstitutesPics" accept=".jpg, .png, image/jpeg, image/png" multiple>
+
+
+
+                        </div>
+                    </div> <!-- Row -->
+                    <hr>
+                    <div class="register-group d-flex justify-content-center">
+                        <button class="btn btn-primary register-institute" type="submit"><i class="fas fa-check"></i>ویرایش</button>
+                        
+                        
+                    </div>
+                </div>
+            }
+
+        </div>
+        
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/dashboard/persian-datepicker.css")
+    @Styles.Render("~/Content/plugin/file-uploader/fancy_fileupload.css")
+    <!--Chosen Css-->
+    @Styles.Render("~/Content/plugin/chosen/chosen.css")
+    @Styles.Render("~/Content/plugin/chosen/prism.css")
+}
+
+
+
+
+@section Scripts{
+
+
+    @Scripts.Render("~/Scripts/dashboard/persian-calender/persian-date.js")
+    @Scripts.Render("~/Scripts/dashboard/persian-calender/persian-datepicker.js")
+
+    @Scripts.Render("~/Content/plugin/file-uploader/jquery.ui.widget.js")
+    @Scripts.Render("~/Content/plugin/file-uploader/jquery.fileupload.js")
+    @Scripts.Render("~/Content/plugin/file-uploader/jquery.iframe-transport.js")
+    @Scripts.Render("~/Content/plugin/file-uploader/jquery.fancy-fileupload.js")
+
+    <!--Chosen Plugin-->
+    @Scripts.Render("~/Content/plugin/chosen/chosen.jquery.js")
+
+    @Scripts.Render("~/Content/plugin/chosen/prism.js")
+
+    @Scripts.Render("~/Content/plugin/chosen/init.js")
+
+    @Scripts.Render("~/Content/plugin/chosen/chosen.proto.js")
+
+
+
+    <script>
+    $('.observer-example').persianDatepicker({
+        observer: true,
+        format: 'YYYY/MM/DD',
+        altField: '.observer-example-alt'
+    });
+    </script>
+
+    <!--For silder-->
+    <script>
+    $('#my-file-uploader-institute').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 1000000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : true,
+        // called whenever starting the upload
+        'startupload' : true,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+    </script>
+
+    <!--For Background-->
+    <script>
+    $('#my-file-uploader-background').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 1000000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : null,
+        // called whenever starting the upload
+        'startupload' : null,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+    </script>
+
+    <!--For Logo-->
+    <script>
+    $('#my-file-uploader-logo').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 100000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : null,
+        // called whenever starting the upload
+        'startupload' : null,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+    </script>
+
+    <!--For Card-->
+    <script>
+    $('#my-file-uploader-card').FancyFileUpload({
+        // send data to this url
+        'url' : '',
+        // key-value pairs to send to the server
+        'params' : {},
+        // editable file name?
+        'edit' : true,
+        // max file size
+        'maxfilesize' : 100000,
+        // a list of allowed file extensions
+        'accept' : null,
+        // 'iec_windows', 'iec_formal', or 'si' to specify what units to use when displaying file sizes
+        'displayunits' : 'iec_windows',
+        // adjust the final precision when displaying file sizes
+        'adjustprecision' : true,
+        // the number of retries to perform before giving up
+        'retries' : 5,
+        // the base delay, in milliseconds, to apply between retries
+        'retrydelay' : 500,
+        // called for each item after it has been added to the DOM
+        'added' : null,
+        // called whenever starting the upload
+        'startupload' : null,
+        // called whenever progress is up<a href="https://www.jqueryscript.net/time-clock/">date</a>d
+        'continueupload' : null,
+        // called whenever an upload has been cancelled
+        'uploadcancelled' : null,
+        // called whenever an upload has successfully completed
+        'uploadcompleted' : null,
+        // jQuery File Upload options
+        'fileupload' : {},
+        // translation strings here
+        'lang<a href="https://www.jqueryscript.net/tags.php?/map/">map</a>' : {},
+        // A valid callback function that is called during initialization to allow for last second changes to the settings.
+        // Useful for altering fileupload options on the fly.
+        'preinit' : null,
+    });
+    </script>
+    <script>
+        
+        var current_ostan_code = 0;
+        
+        var current_city_code = 0;
+        
+        var current_zone_code = 0;
+
+        $(document).ready(function (ev) {
+            current_ostan_code = $("#ddl_ostanlist").val();
+
+            current_city_code = $("#ddl_cities").val();
+
+            current_zone_code = $("#ddl_zone").val();
+
+            load_cities(current_ostan_code);
+            
+            
+        });
+
+        $(document).on('change', '#ddl_ostanlist', function () {
+            //alert($(this).find('option:selected').text());
+
+            current_ostan_code = $(this).val();
+
+            current_city_code = 0;
+
+            current_zone_code = 0;
+
+            //Set_span_ostan_city_zone();
+            load_cities(current_ostan_code);
+
+
+        });
+
+        $(document).on('change', '#ddl_cities', function () {
+            current_city_code = $(this).val();
+            current_zone_code = 0;
+            load_zone(current_city_code);
+        });
+
+        function load_cities(Code) {
+
+            $.ajax
+            ({
+                url: "/Institutes/get_cities",
+                data: { Code: Code },
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                cache: !0,
+                datatype: "html",
+                success: function (list) {
+                    $("#ddl_cities").html(list);
+                    $("#ddl_cities").val(current_city_code);
+                    load_zone(current_city_code);
+                },
+                error: function () {
+                    $("#ddl_cities").html("Post Not Found");
+                }
+            })
+
+        }
+
+        function load_zone(Code) {
+
+            $.ajax
+            ({
+                url: "/Institutes/get_zone",
+                data: { Code: Code },
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                cache: !0,
+                datatype: "html",
+                success: function (list) {
+                    $("#ddl_zone").html(list);
+                    $("#ddl_zone").val(current_zone_code);
+                },
+                error: function () {
+                    $("#ddl_zone").html("Post Not Found");
+                }
+            })
+
+        }
+
+    </script>
+}
+
+

@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Download Page";
+    Layout = "~/Views/Shared/Layout/_Site.cshtml";
+}
+<!-- Header -->
+<header class="masthead contact-us">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="head-title text-center pt-5 wow fadeIn fast">
+                    <h2>تماس با ما</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Search Option -->
+<div class="call-card pt-3 pb-4">
+    <div class="container">
+        <div class="title mb-3 text-right">
+            <h4>راه های ارتباط با ما</h4>
+            <hr>
+            <p>برای برقراری ارتباط مستقیم با پیوندیار میتوانید از راه های ارتباطی ذیل اقدام نمایید.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="~/Content/images/future-icon/location.png" class="parent-shadow rounded-circle wow zoomIn fast" width="128" height="128" alt="parent-pic">
+                        <div class="call wow fadeInUp fast">
+                            <h5>آدرس</h5>
+                            <p>قزوین ، پارک علم و فناوری امام خمینی</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="~/Content/images/future-icon/email.png" class="manager-shadow rounded-circle wow zoomIn fast" width="128" height="128" alt="manager-pic">
+                        <div class="call wow fadeInUp fast">
+                            <h5>ایمیل</h5>
+                            <p>Info@peivandyar.ir</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="~/Content/images/future-icon/call.png" class="teacher-shadow rounded-circle wow zoomIn fast" width="128" height="128" alt="teacher-pic">
+                        <div class="call wow fadeInUp fast">
+                            <h5>شماره تماس</h5>
+                            <p>09217848096</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Article Card -->
+@using (@Html.BeginForm("SendContact", "Home", FormMethod.Post))
+{
+    <div id="contact-card" class="pt-3 pb-4">
+        <div class="container">
+            <div class="title mb-3 text-right">
+                <h4>ارسال انتقادات و پیشنهادات</h4>
+                <hr>
+                <p style="line-height: 28px;">برای ارتقاع سطح کیفی پیوندیار در ارائه ی خدمت مطلوب تر با ارسال پیشنهادات و گزارش هرگونه مشکل ، ما را در این راه یاری کنید. تیم پشتیبانی پیوندیار در اسرع وقت در جهت رفع مشکلات و همچنین اعمال پیشنهادات و انتقادات شما تمام تلاش خود را به کار می گیرد.</p>
+
+                @{ 
+                    ViewModel.ViewBagError msg = new ViewModel.ViewBagError();
+                    if (TempData["msg"] != null)
+                    {
+                        msg = (ViewModel.ViewBagError)TempData["msg"];
+                    }
+                }
+                @if(TempData["msg"] != null)
+                {
+                    <div class="alert alert-@msg.ClassName">
+                        @msg.Msg
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group wow fadeInUp faster">
+                        <input name="Name" class="form-control textbox-control" placeholder="نام شما (اجباری)" type="text" required>
+                    </div>
+                    <div class="form-group wow fadeInUp faster">
+                        <input name="Email" class="form-control textbox-control" placeholder="ایمیل (اجباری)" type="email" required>
+                    </div>
+                    <div class="form-group wow fadeInUp faster">
+                        <input name="Subject" class="form-control textbox-control" placeholder="موضوع" type="text">
+                    </div>
+                    <div class="choose-problem text-right wow fadeInUp faster">
+                        <select name="Type" class="custom-select my-selecoptin" id="inputGroup" aria-label="send problem" required>
+                            <option value="0" selected>پیشنهاد</option>
+                            <option value="1">انتقاد</option>
+                            <option value="2">گزارش مشکل و ایراد</option>
+                            <option value="3">سایر</option>
+                        </select>
+                    </div>
+                    <div class="input-group wow fadeInUp faster">
+                        <textarea name="Comment" class="text-area" placeholder="متن خود را در اینجا بنویسید..." rows="4" aria-label="With textarea"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-5 text-right">
+                    <div class="send-us wow fadeInUp faster">
+                        <button class="btn btn-primary" type="submit"><i class="far fa-envelope-open"></i>&nbsp;ارسال</button>
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-7 text-right">
+                    <div class="accept wow fadeInUp faster">
+                        <p>با ارسال درخواست، شما با قوانین پیوندیار موافقت کرده اید.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    }
+

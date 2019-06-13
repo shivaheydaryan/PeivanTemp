@@ -1,0 +1,103 @@
+﻿@model IEnumerable<ViewModel.InstituteSmallVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout/_SitePeivandManager.cshtml";
+}
+@{
+    MyClass.ImgUrlCreator ImgCreator = new MyClass.ImgUrlCreator();
+    ViewModel.ViewBagError msg = (ViewModel.ViewBagError)ViewBag.msg;
+}
+
+<!-- Body Content -->
+<div id="content" class="">
+    <div class="container-fluid">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title">لیست مراکز آموزشی (صفحه مراکز آموزشی)</h5>
+                <hr class="line-title">
+                @using (@Html.BeginForm("Index", "ListInstitute", FormMethod.Post))
+                {
+                    <div class="input-group">
+                        <a href="@Url.Action("AddInstitute", "ListInstitute",null)" class="btn btn-secondary btn-add"><i class="fas fa-plus-circle"></i>&nbsp;اضافه کردن مرکز آموزشی</a>
+                        <input name="search" type="text" class="form-control input-search" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-secondary btn-search" type="submit" id="button-addon1">جستجو</button>
+                        </div>
+                    </div>
+                }
+                
+
+            </div>
+            @if(msg != null)
+            {
+            <!--Alert Msg-->
+            <div class="alert alert-@msg.ClassName">
+                <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+                @msg.Msg
+            </div>
+            }
+            <div class="card-main">
+                <div class="row">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card mytime-2s">
+                                @{
+                                    string main_pic_src = ImgCreator.InstituteGetURL(item.id);
+                                    
+                                }
+                                <a href="@Url.Action("institute", "Home", new { id = item.id })"><img class="card-img-top" src="@Url.Content(main_pic_src)" alt="@item.name"></a>
+                                <div class="card-body">
+                                    <a href="@Url.Action("institute", "Home", new { id = item.id })">
+                                        <h6 class="school-name text-truncate">@item.InstituteKindName   @item.name</h6>
+                                        <p class="address text-truncate"><i class="fas fa-map-marker-alt"></i>&nbsp;@item.address</p>
+                                        @if (item.Active == true)
+                                        {
+                                            <span class="actived">فعال</span>
+                                        }
+                                        else if (item.Active == false)
+                                        {
+                                            <span class="unactived">غیرفعال</span>
+                                        }
+
+
+                                        @if (item.boyOrGirl == true )
+                                        {
+                                            <span class="gener">پسرانه</span>
+                                        }
+                                        else if(item.boyOrGirl == false)
+                                        {
+                                            <span class="gener">دخترانه</span>
+                                        }
+                                        else if (item.boyOrGirl == null)
+                                        {
+                                            <span class="gener">دخترانه و پسرانه</span>
+                                        }
+
+                                        <span class="kind">@item.InstituteKindName</span>
+                                        
+                                    </a>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a href="@Url.Action("EditInstitute", "ListInstitute", new { id = item.id })" class="">
+                                        ویرایش&nbsp;
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                                        }
+
+
+                    
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

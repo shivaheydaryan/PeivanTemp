@@ -1,0 +1,130 @@
+﻿@model IEnumerable<ViewModel.MessageListVM>
+@using PagedList.Mvc;
+<div class="mailbox-controls">
+    <button class="btn btn-default btn-sm checkbox-toggle" type="button" title="انتخاب همه">
+        <i class="far fa-square"></i><!--far fa-check-square-->
+    </button>
+    <div class="btn-group">
+        <button class="btn btn-default btn-sm" type="button" title="حذف کردن">
+            <i class="far fa-trash-alt"></i>
+        </button>
+        <button class="btn btn-default btn-sm" type="button" title="جواب دادن">
+            <i class="fa fa-reply"></i>
+        </button>
+        <button class="btn btn-default btn-sm" type="button" title="ارسال">
+            <i class="fa fa-share"></i>
+        </button>
+    </div>
+    <button class="btn btn-default btn-sm" type="button" title="از نو کردن">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+    <div class="pages pull-left">
+        @{ int pagesize = 1;
+            int currentpage = ViewBag.currentpage;
+            int totalitem = ViewBag.totalitem;
+            int begin_item = pagesize * currentpage;
+            if (begin_item > totalitem)
+            {
+                begin_item = totalitem;
+            }
+
+        }
+        نمایش از : @begin_item - @totalitem&nbsp;
+        <div class="btn-group">
+            <input id="save_currentpage" type="hidden" value="@currentpage" />
+            @if (currentpage == 1)
+            {
+                <button id="save_prev_btn" class="btn btn-default btn-sm disabled" type="button" title="صفحه قبل">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            }
+            else
+            {
+                <button id="save_prev_btn" class="btn btn-default btn-sm" type="button" title="صفحه قبل">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            }
+            @if ((currentpage + 1) * pagesize > totalitem)
+            {
+                <button id="save_next_btn" class="btn btn-default btn-sm disabled" type="button" title="صفحه بعد">
+                    <i class="fas fa-angle-right"></i>
+                </button>
+            }
+            else
+            {
+                <button id="save_next_btn" class="btn btn-default btn-sm" type="button" title="صفحه بعد">
+                    <i class="fas fa-angle-right"></i>
+                </button>
+            }
+        </div>
+    </div>
+
+</div><!--mail-box-control-->
+<!--Table-Responsive-->
+<div class="table-responsive mailbox-messages">
+    <table class="table table-hover">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td class="mailbox-star">
+                        <a href="#"><i class="fas fa-star"></i></a>
+                    </td>
+                    <td class="mailbox-name">
+                        <a href="messages-read.html">@item.sender</a>
+                    </td>
+                    <td class="mailbox-subject">
+                        <a href="messages-read.html">
+                            <b>>@item.Title</b>
+                            @item.Msg_Content
+                        </a>
+                    </td>
+                    <td class="mailbox-msg-from"><a href="#"><span class="badge bdg-msg">@item.educationalType @item.name</span></a></td>
+                    <td class="mailbox-attachment">
+                        <a href="#"><i class="fas fa-paperclip"></i></a>
+                    </td>
+                    <td class="mailbox-date">@item.Date</td>
+                </tr>
+            }
+            
+        </tbody>
+
+    </table>
+</div>
+<script>
+    $("#save_next_btn").click(function () {
+        var nextpage =parseInt($("#save_currentpage").val()) + 1;
+        LoadSave(nextpage);
+
+    });
+
+    $("#save_prev_btn").click(function () {
+        var prevpage = parseInt($("#save_currentpage").val()) - 1;
+        LoadSave(prevpage);
+
+    });
+
+
+    function LoadSave(page) {
+        $.ajax
+        ({
+            url: "/Message/Save_MSG",
+            data: { page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#Save_div").html(result);
+
+            },
+            error: function () {
+                $("#Save_div").html("Post Not Found")
+            }
+        })
+    }
+
+</script>

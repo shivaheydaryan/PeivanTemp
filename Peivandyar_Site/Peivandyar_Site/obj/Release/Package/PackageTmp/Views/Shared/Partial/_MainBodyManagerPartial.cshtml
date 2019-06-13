@@ -1,0 +1,38 @@
+﻿<!--Create Page Here and Footer -->
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 valign-top display-table-row">
+    <div id="content">
+        <header>
+            <h4 class="">داشبورد مدیریت</h4>
+            <hr class="line-under-title" />
+
+            <!--Breadcrumb-->
+            <ol class="breadcrumb">
+                <li><a href="#">داشبورد مدیریت</a></li>
+                <li><a href="#">داشبورد مدیریت</a></li>
+                <li><a href="#">داشبورد مدیریت</a></li>
+            </ol>
+        </header>
+
+        <!--Top Note-->
+        <div class="content-inner">
+            <div class="row">
+                @if (ViewBag.ErrorMsg != null)
+                {
+                    ViewModel.ViewBagError e = (ViewModel.ViewBagError)ViewBag.ErrorMsg;
+                    <div class="alert @e.ClassName fade in ">
+                        <a href="#" class="close pull-left" data-dismiss="alert" aria-label="close">&times;</a>
+                        @e.Msg
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!--Footer
+    <footer id="admin-footer" class="hidden-xs">
+        <div class="row pull-right">
+            <p>پیوندیار سیستم</p>
+        </div>
+    </footer> -->
+
+</div>

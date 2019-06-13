@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewBag.Title = "Class_Info";
+    Layout = "~/Views/Shared/Layout/_SiteManager.cshtml";
+
+}
+
+@{
+
+    ViewModel.Institute_Info_Session_VM institute_info = null;
+    ViewModel.ClassInfo_VM class_info = null;
+
+    if (Session["Class_info"] != null)
+    {
+        class_info = (ViewModel.ClassInfo_VM)Session["Class_info"];
+    }
+    if (Session["Institute_info"] != null)
+    {
+        institute_info = (ViewModel.Institute_Info_Session_VM)Session["Institute_info"];
+    }
+
+    List<ViewModel.TeacherList_VM> TeacherList = new List<ViewModel.TeacherList_VM>();
+    if (ViewBag.TeacherList!=null)
+    {
+        TeacherList = (List<ViewModel.TeacherList_VM>)ViewBag.TeacherList;
+    }
+
+}
+<!--Create Page Here and Footer-->
+<div id="main-body" class="col-md-10 col-sm-10 col-xs-10 valign-top display-table-row">
+    
+    <div id="content">
+        <header>
+            @if (class_info != null)
+            {
+                <h4 class="choosed-class-name"><i class="fas fa-chalkboard"></i>&nbsp;کلاس @class_info.Name</h4>
+                <p><b>ظرفیت کلاس : </b>@class_info.capasity نفر</p>
+            }
+            
+            
+            <div class="teacher-top-class-info">
+                <b>اسامی مدرس ها : </b>
+                @if (TeacherList != null)
+                {
+                    foreach (var item in TeacherList)
+                    {
+
+                        <a href="#"><span class="badge bdg-top"> @item.firstname @item.lastname </span></a>
+                    }
+                }
+                
+            </div>
+            <hr class="line-under-title" />
+            <!--Breadcrumb-->
+            <ol class="breadcrumb">
+                @if (institute_info != null)
+                {
+                    <li><a href="classes.html">@institute_info.Institute_Types_Caption @institute_info.name</a></li>
+                }
+                @if (class_info != null)
+                {
+                    <li><a href="class-info.html">کلاس @class_info.Name</a></li>
+                }
+
+                
+            </ol>
+        </header>
+
+        <!--content-inner-->
+        <div class="content-inner">
+
+            <!--Class Body-->
+            <div class="row">
+                <div class="class-body">
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <a href="class-nomre.html">
+                            <div class="card-class2 text-center">
+                                <i class="fas fa-clipboard-list"></i>
+                                <h4>نمره ها</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <a href="class-hozor-qiab.html">
+                            <div class="card-class2 text-center">
+                                <i class="fas fa-tasks"></i>
+                                <h4>حضور و غیاب</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="card-class2 text-center">
+                            <a id="btnBarnameHaftegi" href="#" data-toggle="modal" data-target="#barname-haftegi">
+                                <i class="fas fa-th"></i>
+                                <h4>برنامه هفتگی</h4>
+                            </a>
+                            <a class="btn btn-xs btn-default" href="@Url.Action("CreateSchedule", "Classes")">
+                                <span class="fas fa-pencil-alt" aria-hidden="true"></span>&nbsp;ویرایش
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <a href="@Url.Action("Student_list","Student")">
+                            <div class="card-class2 text-center">
+                                <i class="far fa-list-alt"></i>
+                                <h4>لیست دانش آموزها</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <a href="@Url.Action("Employee_list","Employee",null)">
+                            <div class="card-class2 text-center">
+                                <i class="far fa-list-alt"></i>
+                                <h4>لیست کارمندان</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <a href="class-faaliat.html">
+                            <div class="card-class2 text-center">
+                                <i class="fas fa-search"></i>
+                                <h4>فعالیت غیر درسی</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <a href="class-emtehan.html">
+                            <div class="card-class2 text-center">
+                                <i class="fas fa-book-open"></i>
+                                <h4>برنامه امتحانی</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <a href="class-bodjebandi.html">
+                            <div class="card-class2 text-center">
+                                <i class="fas fa-book"></i>
+                                <h4>بودجه بندی</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div><!--End Class Body-->
+            <!--Edit Modal Body-->
+            <div class="modal fade" id="mymodal-edit" role="dialog">
+                <div class="modal-dialog">
+                    <!--Modal Content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close pull-left" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">ویرایش کردن کلاس</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h4>اطلاعات زیر را پر کنید:</h4>
+                            <div class="col-md-6 col-sm-12 form-group">
+                                <h5>پایه تحصیلی :</h5>
+                                <select class="form-control">
+                                    <option>۱</option>
+                                    <option>۲</option>
+                                    <option>۳</option>
+                                    <option>۴</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <h5>نام کلاس:</h5>
+                                <input type="text" class="input-class-name" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <h5>حداکثر ظرفیت کلاس:</h5>
+                                <input type="text" class="input-class-name" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <h5>تعداد دانش آموز:</h5>
+                                <input type="text" class="input-class-student" />
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <h5>نام مدرس:</h5>
+                                <input type="text" class="input-class-teacher" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <h5>نام مرکز آموزشی:</h5>
+                                <input type="text" class="input-class-institute" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-send="modal">ثبت تغییرات</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">انصراف</button>
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="moda">حذف کردن کلاس</button>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--End Edit Modal-->
+            
+        
+        <!--Barname Haftegi-->
+            
+        
+        <div class="modal fade" id="barname-haftegi" role="dialog">
+                <div class="modal-dialog modal-lg">
+                        
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button  type="button" class="close pull-left" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">برنامه هفتگی</h3>
+                        </div>
+
+                        <div id="BarnameHaftegiContent" class="modal-body">
+
+                            
+                        </div>
+                    </div> <!-- modal-content -->
+
+            
+                </div><!-- modal-dialog -->
+        </div>
+        <!-- Barname Haftegi -->
+
+
+        </div> <!-- End content-inner -->
+
+
+    </div>
+
+    <!--Footer-->
+    <!--Footer
+    <footer id="admin-footer" class="hidden-xs">
+        <div class="row pull-right">
+            <p>پیوندیار سیستم</p>
+        </div>
+    </footer> -->
+
+</div>
+<!--End Page Body-->
+
+@section Scripts{
+<script>
+    $(document).ready(function (ev) {
+        $('#btnBarnameHaftegi').click(function () {
+            
+            LoadBarnameHaftegi();
+        });
+    });
+
+    function LoadBarnameHaftegi() {
+        $.ajax
+        ({
+            url: "/Classes/viewBarnameHaftegiPartial",
+            //data: { page: page },
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            cache: !0,
+            datatype: "html",
+            success: function (result) {
+                $("#BarnameHaftegiContent").html(result);
+
+            },
+            error: function () {
+                $("#BarnameHaftegiContent").html("Post Not Found")
+            }
+        })
+    }
+
+
+    </script>
+    }
